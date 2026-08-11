@@ -58,16 +58,21 @@ FastAPI service that powers the Songs editor.
 | --- | --- | --- |
 | `BACKEND_SSH_HOST` | `223.244.23.234` | Public IP / hostname of the server |
 | `BACKEND_SSH_PORT` | `22` | Optional; omit for port 22 |
-| `BACKEND_SSH_USER` | `songs` | Must own `/srv/apps/songs-backend` and restart the service (passwordless sudo for `systemctl restart songs-backend`) |
+| `BACKEND_SSH_USER` | `songs` | Must own `/srv/apps/songs-backend` and have passwordless sudo for `systemctl` and `cp` (see below) |
 | `BACKEND_SSH_KEY` | *(PEM private key)* | Private key granting SSH access for the user above |
-| *(none)* |  |  |
 
 Generate the SSH key pair locally (`ssh-keygen -t ed25519 -f songs-backend-deploy`), add the **public** part to `~songs/.ssh/authorized_keys`, and store the **private** part verbatim (including `-----BEGIN`/`END-----`) in the `BACKEND_SSH_KEY` secret.
+
+The deploy user needs passwordless sudo for these commands (create `/etc/sudoers.d/songs-backend`):
+```bash
+echo "songs ALL=(ALL) NOPASSWD: /usr/bin/cp /srv/apps/songs-backend/deploy/songs-backend.service /etc/systemd/system/, /bin/systemctl daemon-reload, /bin/systemctl restart songs-backend, /bin/systemctl status songs-backend" | sudo tee /etc/sudoers.d/songs-backend
+sudo visudo -c
+```
 
 ## What happens on every push
 
 1. `backend-ci` job installs the package in editable mode and runs `python -m compileall app`.
-2. `deploy` job (only on `main`) SSHes into `/srv/apps/songs-backend`, runs `git fetch --prune origin main && git reset --hard origin/main`, ensures `/srv/apps/songs-backend/.venv` exists, upgrades `pip`, reinstalls the backend, and calls `sudo systemctl restart songs-backend` (after `daemon-reload`).
+2. `deploy` job (only on `main`) SSHes into `/srv/apps/songs-backend`, runs `git fetch --prune origin main && git reset --hard origin/main`, ensures `/srv/apps/songs-backend/.venv` exists (created with `python3.11`), upgrades `pip`, reinstalls the backend, re-copies the service unit to `/etc/systemd/system/`, and calls `sudo systemctl restart songs-backend` (after `daemon-reload`).
 3. `systemctl status songs-backend` output is streamed into the Actions logs, so failures are visible immediately.
 
 Trigger it manually via the *Run workflow* button if you need an ad-hoc redeploy without a git push.

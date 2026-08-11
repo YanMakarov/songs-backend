@@ -8,6 +8,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.11"
+  REMOTE_PYTHON: python3.11
   DEPLOY_PATH: /srv/apps/songs-backend
   REMOTE_VENV: /srv/apps/songs-backend/.venv
   SYSTEMD_SERVICE: songs-backend
@@ -64,6 +65,7 @@ jobs:
           DEPLOY_HOST: ${{ secrets.BACKEND_SSH_HOST }}
           DEPLOY_PORT: ${{ secrets.BACKEND_SSH_PORT }}
           DEPLOY_USER: ${{ secrets.BACKEND_SSH_USER }}
+          REMOTE_PYTHON: ${{ env.REMOTE_PYTHON }}
           DEPLOY_PATH: ${{ env.DEPLOY_PATH }}
           REMOTE_VENV: ${{ env.REMOTE_VENV }}
           SYSTEMD_SERVICE: ${{ env.SYSTEMD_SERVICE }}
@@ -73,6 +75,6 @@ jobs:
             echo "BACKEND_SSH_HOST and BACKEND_SSH_USER secrets are required" >&2
             exit 1
           fi
-          REMOTE_SCRIPT='set -euo pipefail; cd "$DEPLOY_PATH"; if [ ! -d .git ]; then echo "$DEPLOY_PATH is not a git repository" >&2; exit 1; fi; git fetch --prune origin "$DEPLOY_BRANCH"; git checkout "$DEPLOY_BRANCH"; git reset --hard "origin/$DEPLOY_BRANCH"; if [ ! -d "$REMOTE_VENV" ]; then python3 -m venv "$REMOTE_VENV"; fi; "$REMOTE_VENV/bin/pip" install --upgrade pip wheel setuptools; "$REMOTE_VENV/bin/pip" install -e .; sudo systemctl daemon-reload; sudo systemctl restart "$SYSTEMD_SERVICE"; sudo systemctl --no-pager status "$SYSTEMD_SERVICE"'
+          REMOTE_SCRIPT='set -euo pipefail; cd "$DEPLOY_PATH"; if [ ! -d .git ]; then echo "$DEPLOY_PATH is not a git repository" >&2; exit 1; fi; git fetch --prune origin "$DEPLOY_BRANCH"; git checkout "$DEPLOY_BRANCH"; git reset --hard "origin/$DEPLOY_BRANCH"; if [ ! -d "$REMOTE_VENV" ]; then "$REMOTE_PYTHON" -m venv "$REMOTE_VENV"; fi; "$REMOTE_VENV/bin/pip" install --upgrade pip wheel setuptools; "$REMOTE_VENV/bin/pip" install -e .; sudo cp "$DEPLOY_PATH/deploy/songs-backend.service" /etc/systemd/system/; sudo systemctl daemon-reload; sudo systemctl restart "$SYSTEMD_SERVICE"; sudo systemctl --no-pager status "$SYSTEMD_SERVICE"'
           ssh -p "${DEPLOY_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "DEPLOY_PATH='${DEPLOY_PATH}' REMOTE_VENV='${REMOTE_VENV}' SYSTEMD_SERVICE='${SYSTEMD_SERVICE}' DEPLOY_BRANCH='${DEPLOY_BRANCH}' bash -c '${REMOTE_SCRIPT}'"
+            "REMOTE_PYTHON='${REMOTE_PYTHON}' DEPLOY_PATH='${DEPLOY_PATH}' REMOTE_VENV='${REMOTE_VENV}' SYSTEMD_SERVICE='${SYSTEMD_SERVICE}' DEPLOY_BRANCH='${DEPLOY_BRANCH}' bash -c '${REMOTE_SCRIPT}'"
