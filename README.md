@@ -56,7 +56,7 @@ FastAPI service that powers the Songs editor.
 
 | secret | example | notes |
 | --- | --- | --- |
-| `BACKEND_SSH_HOST` | `223.244.23.233` | Public IP / hostname of the server |
+| `BACKEND_SSH_HOST` | `223.244.23.234` | Public IP / hostname of the server |
 | `BACKEND_SSH_PORT` | `22` | Optional; omit for port 22 |
 | `BACKEND_SSH_USER` | `songs` | Must own `/srv/apps/songs-backend` and restart the service (passwordless sudo for `systemctl restart songs-backend`) |
 | `BACKEND_SSH_KEY` | *(PEM private key)* | Private key granting SSH access for the user above |
