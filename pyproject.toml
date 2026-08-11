@@ -1,0 +1,19 @@
+[project]
+name = "songs-backend"
+version = "0.1.0"
+description = "FastAPI backend for the songs editor"
+authors = [{ name = "songs" }]
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.111,<0.112",
+  "uvicorn[standard]>=0.29,<0.30",
+  "sqlmodel>=0.0.16,<0.0.17"
+]
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.uvicorn]
+factory = false
+reload = true

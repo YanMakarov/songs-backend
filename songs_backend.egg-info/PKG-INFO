@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: songs-backend
+Version: 0.1.0
+Summary: FastAPI backend for the songs editor
+Author: songs
+Requires-Python: >=3.11
+Requires-Dist: fastapi<0.112,>=0.111
+Requires-Dist: uvicorn[standard]<0.30,>=0.29
+Requires-Dist: sqlmodel<0.0.17,>=0.0.16
