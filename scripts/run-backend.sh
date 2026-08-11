@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 BACKEND_DIR=$(cd -- "${SCRIPT_DIR}/.." && pwd)
+REPO_ROOT=$(cd -- "${BACKEND_DIR}/.." && pwd)
 DEFAULT_ENV_FILE="${BACKEND_DIR}/.env"
 FALLBACK_ENV_FILE="${BACKEND_DIR}/.env.example"
 DEFAULT_PID_FILE="${BACKEND_DIR}/.backend.pid"
@@ -30,6 +31,8 @@ PYTHON_BIN=${PYTHON_BIN:-}
 if [[ -z "${PYTHON_BIN}" ]]; then
   if [[ -x "${BACKEND_DIR}/.venv/bin/python" ]]; then
     PYTHON_BIN="${BACKEND_DIR}/.venv/bin/python"
+  elif [[ -x "${REPO_ROOT}/.venv/bin/python" ]]; then
+    PYTHON_BIN="${REPO_ROOT}/.venv/bin/python"
   elif command -v python3 >/dev/null 2>&1; then
     PYTHON_BIN=$(command -v python3)
   elif command -v python >/dev/null 2>&1; then
