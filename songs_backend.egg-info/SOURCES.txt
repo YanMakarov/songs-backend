@@ -1,3 +1,4 @@
+README.md
 pyproject.toml
 app/__init__.py
 app/config.py
@@ -6,8 +7,11 @@ app/database.py
 app/main.py
 app/markdown_utils.py
 app/models.py
+app/music_utils.py
+app/pdf_import.py
 app/schemas.py
 app/api/__init__.py
+app/api/pdf.py
 app/api/songs.py
 songs_backend.egg-info/PKG-INFO
 songs_backend.egg-info/SOURCES.txt

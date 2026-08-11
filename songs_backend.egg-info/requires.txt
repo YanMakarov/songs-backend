@@ -1,3 +1,4 @@
 fastapi<0.112,>=0.111
 uvicorn[standard]<0.30,>=0.29
 sqlmodel<0.0.17,>=0.0.16
+pdfminer.six>=20231228
