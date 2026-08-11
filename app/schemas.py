@@ -32,6 +32,14 @@ class SongLine(APIModel):
     chords: List[SongChord] = Field(default_factory=list)
 
 
+class PDFImportResult(APIModel):
+    title: Optional[str] = None
+    bpm: Optional[int] = None
+    time_signature: Optional[str] = None
+    primary_key: Optional[str] = None
+    lines: List[SongLine] = Field(default_factory=list)
+
+
 class SongBase(APIModel):
     id: str
     setlist_slug: str
