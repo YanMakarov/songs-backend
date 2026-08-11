@@ -1,0 +1,1156 @@
+[
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "File",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "UploadFile",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Generator",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Literal",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "field_validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "ConfigDict",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "select",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "Session",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "SQLModel",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "create_engine",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "SQLModel",
+        "importPath": "sqlmodel",
+        "description": "sqlmodel",
+        "isExtraImport": true,
+        "detail": "sqlmodel",
+        "documentation": {}
+    },
+    {
+        "label": "contextmanager",
+        "importPath": "contextlib",
+        "description": "contextlib",
+        "isExtraImport": true,
+        "detail": "contextlib",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "extract_pages",
+        "importPath": "pdfminer.high_level",
+        "description": "pdfminer.high_level",
+        "isExtraImport": true,
+        "detail": "pdfminer.high_level",
+        "documentation": {}
+    },
+    {
+        "label": "LAParams",
+        "importPath": "pdfminer.layout",
+        "description": "pdfminer.layout",
+        "isExtraImport": true,
+        "detail": "pdfminer.layout",
+        "documentation": {}
+    },
+    {
+        "label": "LTAnno",
+        "importPath": "pdfminer.layout",
+        "description": "pdfminer.layout",
+        "isExtraImport": true,
+        "detail": "pdfminer.layout",
+        "documentation": {}
+    },
+    {
+        "label": "LTChar",
+        "importPath": "pdfminer.layout",
+        "description": "pdfminer.layout",
+        "isExtraImport": true,
+        "detail": "pdfminer.layout",
+        "documentation": {}
+    },
+    {
+        "label": "LTTextContainer",
+        "importPath": "pdfminer.layout",
+        "description": "pdfminer.layout",
+        "isExtraImport": true,
+        "detail": "pdfminer.layout",
+        "documentation": {}
+    },
+    {
+        "label": "LTTextLine",
+        "importPath": "pdfminer.layout",
+        "description": "pdfminer.layout",
+        "isExtraImport": true,
+        "detail": "pdfminer.layout",
+        "documentation": {}
+    },
+    {
+        "label": "PDFSyntaxError",
+        "importPath": "pdfminer.pdfparser",
+        "description": "pdfminer.pdfparser",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfparser",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "app.api.pdf",
+        "description": "app.api.pdf",
+        "peekOfCode": "router = APIRouter(prefix=\"/pdf\", tags=[\"pdf\"])\n@router.post(\"/import\", response_model=PDFImportResult, status_code=status.HTTP_200_OK)\nasync def import_pdf(file: UploadFile = File(...)) -> PDFImportResult:\n    data = await file.read()\n    await file.close()\n    try:\n        return PDFImportResult.model_validate(import_pdf_document(data))\n    except PDFImportError as exc:\n        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc",
+        "detail": "app.api.pdf",
+        "documentation": {}
+    },
+    {
+        "label": "list_songs",
+        "kind": 2,
+        "importPath": "app.api.songs",
+        "description": "app.api.songs",
+        "peekOfCode": "def list_songs(setlist_slug: str, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    return crud.list_songs(session, setlist)\n@router.post(\"/\", response_model=SongDetail, status_code=status.HTTP_201_CREATED)\ndef create_song(setlist_slug: str, payload: SongCreate, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")",
+        "detail": "app.api.songs",
+        "documentation": {}
+    },
+    {
+        "label": "create_song",
+        "kind": 2,
+        "importPath": "app.api.songs",
+        "description": "app.api.songs",
+        "peekOfCode": "def create_song(setlist_slug: str, payload: SongCreate, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    return crud.create_song(session, setlist, payload)\n@router.get(\"/{song_id}\", response_model=SongDetail)\ndef get_song(setlist_slug: str, song_id: str, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")",
+        "detail": "app.api.songs",
+        "documentation": {}
+    },
+    {
+        "label": "get_song",
+        "kind": 2,
+        "importPath": "app.api.songs",
+        "description": "app.api.songs",
+        "peekOfCode": "def get_song(setlist_slug: str, song_id: str, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    detail = crud.get_song_detail(session, setlist, song_id)\n    if not detail:\n        raise HTTPException(status_code=404, detail=\"Song not found\")\n    return detail\n@router.patch(\"/{song_id}\", response_model=SongDetail)\ndef update_song(setlist_slug: str, song_id: str, payload: SongUpdate, session=Depends(get_session)):",
+        "detail": "app.api.songs",
+        "documentation": {}
+    },
+    {
+        "label": "update_song",
+        "kind": 2,
+        "importPath": "app.api.songs",
+        "description": "app.api.songs",
+        "peekOfCode": "def update_song(setlist_slug: str, song_id: str, payload: SongUpdate, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    song = crud.get_song(session, setlist, song_id)\n    if not song:\n        raise HTTPException(status_code=404, detail=\"Song not found\")\n    return crud.update_song(session, setlist, song, payload)\n@router.delete(\"/{song_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_song(setlist_slug: str, song_id: str, session=Depends(get_session)):",
+        "detail": "app.api.songs",
+        "documentation": {}
+    },
+    {
+        "label": "delete_song",
+        "kind": 2,
+        "importPath": "app.api.songs",
+        "description": "app.api.songs",
+        "peekOfCode": "def delete_song(setlist_slug: str, song_id: str, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    song = crud.get_song(session, setlist, song_id)\n    if not song:\n        raise HTTPException(status_code=404, detail=\"Song not found\")\n    crud.delete_song(session, song)\n    return Response(status_code=status.HTTP_204_NO_CONTENT)\n@router.post(\"/reorder\", response_model=list[SongSummary])",
+        "detail": "app.api.songs",
+        "documentation": {}
+    },
+    {
+        "label": "reorder_songs",
+        "kind": 2,
+        "importPath": "app.api.songs",
+        "description": "app.api.songs",
+        "peekOfCode": "def reorder_songs(setlist_slug: str, payload: ReorderPayload, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    return crud.reorder_songs(session, setlist, payload.order)",
+        "detail": "app.api.songs",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "app.api.songs",
+        "description": "app.api.songs",
+        "peekOfCode": "router = APIRouter(prefix=\"/setlists/{setlist_slug}/songs\", tags=[\"songs\"])\n@router.get(\"/\", response_model=list[SongSummary])\ndef list_songs(setlist_slug: str, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    return crud.list_songs(session, setlist)\n@router.post(\"/\", response_model=SongDetail, status_code=status.HTTP_201_CREATED)\ndef create_song(setlist_slug: str, payload: SongCreate, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)",
+        "detail": "app.api.songs",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "kind": 6,
+        "importPath": "app.config",
+        "description": "app.config",
+        "peekOfCode": "class Settings(BaseModel):\n    app_name: str = \"Songs API\"\n    database_url: str = \"sqlite:///./songs.db\"\n    cors_origins: List[str] = [\n        \"http://localhost:5173\",\n        \"http://127.0.0.1:5173\",\n        \"http://localhost:4173\",\n        \"http://127.0.0.1:4173\",\n    ]\n    cors_origin_regex: str | None = r\"https?://(localhost|127\\.0\\.0\\.1)(:\\d+)?$\"",
+        "detail": "app.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_settings",
+        "kind": 2,
+        "importPath": "app.config",
+        "description": "app.config",
+        "peekOfCode": "def get_settings() -> Settings:\n    \"\"\"Return cached settings instance built from environment variables.\"\"\"\n    cors_raw = os.getenv(\"SONGS_API_CORS_ORIGINS\") or os.getenv(\"CORS_ORIGINS\") or \"\"\n    cors_regex_env = os.getenv(\"SONGS_API_CORS_ORIGIN_REGEX\") or os.getenv(\"CORS_ORIGIN_REGEX\")\n    if cors_regex_env is not None:\n        cors_origin_regex = cors_regex_env.strip() or None\n    else:\n        cors_origin_regex = Settings.model_fields[\"cors_origin_regex\"].default\n    return Settings(\n        database_url=os.getenv(\"DATABASE_URL\", Settings.model_fields[\"database_url\"].default),",
+        "detail": "app.config",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "kind": 5,
+        "importPath": "app.config",
+        "description": "app.config",
+        "peekOfCode": "settings = get_settings()",
+        "detail": "app.config",
+        "documentation": {}
+    },
+    {
+        "label": "ensure_setlist",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def ensure_setlist(session: Session, slug: str, name: str) -> Setlist:\n    setlist = session.exec(select(Setlist).where(Setlist.slug == slug)).first()\n    if setlist:\n        return setlist\n    setlist = Setlist(slug=slug, name=name)\n    session.add(setlist)\n    session.commit()\n    session.refresh(setlist)\n    return setlist\ndef get_setlist(session: Session, slug: str) -> Setlist | None:",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "get_setlist",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def get_setlist(session: Session, slug: str) -> Setlist | None:\n    return session.exec(select(Setlist).where(Setlist.slug == slug)).first()\ndef _to_summary(song: Song, setlist: Setlist) -> SongSummary:\n    return SongSummary(\n        id=song.id,\n        setlist_slug=setlist.slug,\n        title=song.title,\n        key=song.key,\n        original_key=song.original_key,\n        bpm=song.bpm,",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "list_songs",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def list_songs(session: Session, setlist: Setlist) -> List[SongSummary]:\n    songs = session.exec(\n        select(Song).where(Song.setlist_id == setlist.id).order_by(Song.position, Song.created_at)\n    ).all()\n    return [_to_summary(song, setlist) for song in songs]\ndef get_song(session: Session, setlist: Setlist, song_id: str) -> Song | None:\n    return session.exec(select(Song).where(Song.setlist_id == setlist.id, Song.id == song_id)).first()\ndef get_song_detail(session: Session, setlist: Setlist, song_id: str) -> SongDetail | None:\n    song = get_song(session, setlist, song_id)\n    if not song:",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "get_song",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def get_song(session: Session, setlist: Setlist, song_id: str) -> Song | None:\n    return session.exec(select(Song).where(Song.setlist_id == setlist.id, Song.id == song_id)).first()\ndef get_song_detail(session: Session, setlist: Setlist, song_id: str) -> SongDetail | None:\n    song = get_song(session, setlist, song_id)\n    if not song:\n        return None\n    return _to_detail(song, setlist)\ndef _next_position(session: Session, setlist: Setlist) -> int:\n    last_song = session.exec(\n        select(Song).where(Song.setlist_id == setlist.id).order_by(Song.position.desc())",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "get_song_detail",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def get_song_detail(session: Session, setlist: Setlist, song_id: str) -> SongDetail | None:\n    song = get_song(session, setlist, song_id)\n    if not song:\n        return None\n    return _to_detail(song, setlist)\ndef _next_position(session: Session, setlist: Setlist) -> int:\n    last_song = session.exec(\n        select(Song).where(Song.setlist_id == setlist.id).order_by(Song.position.desc())\n    ).first()\n    return (last_song.position + 1) if last_song else 0",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "create_song",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def create_song(session: Session, setlist: Setlist, payload: SongCreate) -> SongDetail:\n    lines = payload.lines or markdown_utils.default_lines()\n    if isinstance(lines, list):\n        validated_lines = [SongLine.model_validate(line) for line in lines]\n    else:\n        validated_lines = markdown_utils.default_lines()\n    markdown_body = markdown_utils.lines_to_markdown(validated_lines)\n    now = datetime.utcnow()\n    song = Song(\n        setlist_id=setlist.id,",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "update_song",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def update_song(session: Session, setlist: Setlist, song: Song, payload: SongUpdate) -> SongDetail:\n    if \"title\" in payload.model_fields_set:\n        song.title = payload.title or \"\"\n    if \"key\" in payload.model_fields_set and payload.key:\n        song.key = payload.key\n    if \"original_key\" in payload.model_fields_set:\n        song.original_key = payload.original_key\n    if \"bpm\" in payload.model_fields_set:\n        song.bpm = payload.bpm\n    if \"time_signature\" in payload.model_fields_set and payload.time_signature:",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "delete_song",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def delete_song(session: Session, song: Song) -> None:\n    session.delete(song)\n    session.commit()\ndef reorder_songs(session: Session, setlist: Setlist, order: Iterable[str]) -> List[SongSummary]:\n    songs = session.exec(select(Song).where(Song.setlist_id == setlist.id)).all()\n    lookup = {song.id: song for song in songs}\n    next_position = 0\n    for song_id in order:\n        song = lookup.get(song_id)\n        if not song:",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "reorder_songs",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def reorder_songs(session: Session, setlist: Setlist, order: Iterable[str]) -> List[SongSummary]:\n    songs = session.exec(select(Song).where(Song.setlist_id == setlist.id)).all()\n    lookup = {song.id: song for song in songs}\n    next_position = 0\n    for song_id in order:\n        song = lookup.get(song_id)\n        if not song:\n            continue\n        song.position = next_position\n        song.updated_at = datetime.utcnow()",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "init_db",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def init_db() -> None:\n    \"\"\"Create database tables.\"\"\"\n    SQLModel.metadata.create_all(engine)\n@contextmanager\ndef session_scope() -> Generator[Session, None, None]:\n    session = Session(engine)\n    try:\n        yield session\n        session.commit()\n    except Exception:",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "session_scope",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def session_scope() -> Generator[Session, None, None]:\n    session = Session(engine)\n    try:\n        yield session\n        session.commit()\n    except Exception:\n        session.rollback()\n        raise\n    finally:\n        session.close()",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "get_session",
+        "kind": 2,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "def get_session() -> Generator[Session, None, None]:\n    with Session(engine) as session:\n        yield session",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "connect_args",
+        "kind": 5,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "connect_args = {\"check_same_thread\": False} if settings.database_url.startswith(\"sqlite\") else {}\nengine = create_engine(settings.database_url, connect_args=connect_args\n                       )\ndef init_db() -> None:\n    \"\"\"Create database tables.\"\"\"\n    SQLModel.metadata.create_all(engine)\n@contextmanager\ndef session_scope() -> Generator[Session, None, None]:\n    session = Session(engine)\n    try:",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "engine",
+        "kind": 5,
+        "importPath": "app.database",
+        "description": "app.database",
+        "peekOfCode": "engine = create_engine(settings.database_url, connect_args=connect_args\n                       )\ndef init_db() -> None:\n    \"\"\"Create database tables.\"\"\"\n    SQLModel.metadata.create_all(engine)\n@contextmanager\ndef session_scope() -> Generator[Session, None, None]:\n    session = Session(engine)\n    try:\n        yield session",
+        "detail": "app.database",
+        "documentation": {}
+    },
+    {
+        "label": "health",
+        "kind": 2,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "def health() -> dict[str, str]:\n    return {\"status\": \"ok\"}\napp.include_router(api_router)",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "app = FastAPI(title=settings.app_name)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=settings.cors_origins or [\"*\"],\n    allow_origin_regex=settings.cors_origin_regex,\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n@app.on_event(\"startup\")",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "lines_to_markdown",
+        "kind": 2,
+        "importPath": "app.markdown_utils",
+        "description": "app.markdown_utils",
+        "peekOfCode": "def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:\n    rendered: List[str] = []\n    for raw_line in lines:\n        line = _ensure_line(raw_line)\n        if line.type == \"section\":\n            label = (line.label or \"\").strip()\n            key_suffix = f\" {{key={line.key.strip()}}}\" if line.key else \"\"\n            rendered.append(f\"## {label}{key_suffix}\".rstrip())\n            continue\n        if line.type == \"chords\":",
+        "detail": "app.markdown_utils",
+        "documentation": {}
+    },
+    {
+        "label": "markdown_to_lines",
+        "kind": 2,
+        "importPath": "app.markdown_utils",
+        "description": "app.markdown_utils",
+        "peekOfCode": "def markdown_to_lines(markdown: str) -> List[SongLine]:\n    raw_lines = markdown.splitlines() if markdown else []\n    lines: List[SongLine] = []\n    for raw in raw_lines:\n        stripped = raw.rstrip()\n        if stripped.startswith(\"##\"):\n            lines.append(_parse_section_line(stripped))\n        elif stripped.startswith(\"::\"):\n            lines.append(_parse_chords_line(stripped))\n        else:",
+        "detail": "app.markdown_utils",
+        "documentation": {}
+    },
+    {
+        "label": "empty_line",
+        "kind": 2,
+        "importPath": "app.markdown_utils",
+        "description": "app.markdown_utils",
+        "peekOfCode": "def empty_line() -> SongLine:\n    return SongLine(id=generate_public_id(), type=\"line\", lyrics=\"\", chords=[])\ndef default_lines() -> List[SongLine]:\n    return [empty_line()]",
+        "detail": "app.markdown_utils",
+        "documentation": {}
+    },
+    {
+        "label": "default_lines",
+        "kind": 2,
+        "importPath": "app.markdown_utils",
+        "description": "app.markdown_utils",
+        "peekOfCode": "def default_lines() -> List[SongLine]:\n    return [empty_line()]",
+        "detail": "app.markdown_utils",
+        "documentation": {}
+    },
+    {
+        "label": "Setlist",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class Setlist(SQLModel, table=True):\n    id: int | None = Field(default=None, primary_key=True)\n    slug: str = Field(index=True, unique=True)\n    name: str\n    description: str | None = None\n    created_at: datetime = Field(default_factory=datetime.utcnow)\nclass Song(SQLModel, table=True):\n    id: str = Field(default_factory=generate_public_id, primary_key=True, index=True)\n    setlist_id: int = Field(foreign_key=\"setlist.id\", index=True)\n    title: str = Field(default=\"Новая песня\")",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "Song",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class Song(SQLModel, table=True):\n    id: str = Field(default_factory=generate_public_id, primary_key=True, index=True)\n    setlist_id: int = Field(foreign_key=\"setlist.id\", index=True)\n    title: str = Field(default=\"Новая песня\")\n    key: str = Field(default=\"C\")\n    original_key: str | None = None\n    bpm: int | None = None\n    time_signature: str | None = Field(default=\"4/4\")\n    markdown_body: str\n    position: int = Field(default=0, index=True)",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "generate_public_id",
+        "kind": 2,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "def generate_public_id() -> str:\n    random_part = format(secrets.randbits(32), \"x\")\n    timestamp_part = format(int(time.time() * 1000), \"x\")\n    return (random_part + timestamp_part)[:20]\nclass Setlist(SQLModel, table=True):\n    id: int | None = Field(default=None, primary_key=True)\n    slug: str = Field(index=True, unique=True)\n    name: str\n    description: str | None = None\n    created_at: datetime = Field(default_factory=datetime.utcnow)",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "normalize_chord_text",
+        "kind": 2,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "def normalize_chord_text(chord: Optional[str]) -> str:\n    raw = (chord or \"\").strip()\n    if not raw:\n        return \"\"\n    first = CYRILLIC_ROOT_LOOKALIKES.get(raw[0])\n    return f\"{first}{raw[1:]}\" if first else raw\ndef note_to_semitone(note: Optional[str]) -> Optional[int]:\n    return NOTE_TO_SEMITONE.get(note) if note else None\ndef semitone_to_note(value: int, prefer_flat: bool) -> str:\n    normalized = (value % 12 + 12) % 12",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "note_to_semitone",
+        "kind": 2,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "def note_to_semitone(note: Optional[str]) -> Optional[int]:\n    return NOTE_TO_SEMITONE.get(note) if note else None\ndef semitone_to_note(value: int, prefer_flat: bool) -> str:\n    normalized = (value % 12 + 12) % 12\n    names = FLAT_NAMES if prefer_flat else SHARP_NAMES\n    return names[normalized]\ndef parse_key(key_label: Optional[str]) -> dict[str, object]:\n    raw = (key_label or \"\").strip()\n    match = re.match(r\"^([A-Ga-g])([#b]?)(m)?$\", raw)\n    if not match:",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "semitone_to_note",
+        "kind": 2,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "def semitone_to_note(value: int, prefer_flat: bool) -> str:\n    normalized = (value % 12 + 12) % 12\n    names = FLAT_NAMES if prefer_flat else SHARP_NAMES\n    return names[normalized]\ndef parse_key(key_label: Optional[str]) -> dict[str, object]:\n    raw = (key_label or \"\").strip()\n    match = re.match(r\"^([A-Ga-g])([#b]?)(m)?$\", raw)\n    if not match:\n        return {\"tonic\": raw or \"C\", \"mode\": \"major\", \"prefer_flat\": False, \"valid\": False}\n    letter = match.group(1).upper()",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "parse_key",
+        "kind": 2,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "def parse_key(key_label: Optional[str]) -> dict[str, object]:\n    raw = (key_label or \"\").strip()\n    match = re.match(r\"^([A-Ga-g])([#b]?)(m)?$\", raw)\n    if not match:\n        return {\"tonic\": raw or \"C\", \"mode\": \"major\", \"prefer_flat\": False, \"valid\": False}\n    letter = match.group(1).upper()\n    accidental = match.group(2) or \"\"\n    mode = \"minor\" if match.group(3) else \"major\"\n    tonic = f\"{letter}{accidental}\"\n    prefer_flat = (",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "parse_chord",
+        "kind": 2,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "def parse_chord(chord: Optional[str]) -> tuple[Optional[str], str]:\n    raw = normalize_chord_text(chord)\n    match = re.match(r\"^([A-Ga-g])([#b]?)(.*)$\", raw)\n    if not match:\n        return None, raw\n    root = f\"{match.group(1).upper()}{match.group(2) or ''}\"\n    suffix = match.group(3) or \"\"\n    return root, suffix\ndef diatonic_chords(key_label: Optional[str]) -> list[str]:\n    key = parse_key(key_label)",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "diatonic_chords",
+        "kind": 2,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "def diatonic_chords(key_label: Optional[str]) -> list[str]:\n    key = parse_key(key_label)\n    if not key[\"valid\"]:\n        return []\n    tonic_semitone = note_to_semitone(key[\"tonic\"])\n    if tonic_semitone is None:\n        return []\n    if key[\"mode\"] == \"minor\":\n        steps = [0, 2, 3, 5, 7, 8, 10]\n        qualities = [\"m\", \"dim\", \"\", \"m\", \"m\", \"\", \"\"]",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "detect_key",
+        "kind": 2,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "def detect_key(chord_strings: Iterable[str]) -> Optional[str]:\n    observed = [info for chord in chord_strings if (info := _chord_quality_info(chord))]\n    if not observed:\n        return None\n    best: Optional[tuple[float, str]] = None\n    for semitone in range(12):\n        for mode in (\"major\", \"minor\"):\n            tonic_label = f\"{semitone_to_note(semitone, False)}{'m' if mode == 'minor' else ''}\"\n            diatonic = _diatonic_quality_info(tonic_label)\n            score = 0.0",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "SHARP_NAMES",
+        "kind": 5,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "SHARP_NAMES = [\"C\", \"C#\", \"D\", \"D#\", \"E\", \"F\", \"F#\", \"G\", \"G#\", \"A\", \"A#\", \"B\"]\nFLAT_NAMES = [\"C\", \"Db\", \"D\", \"Eb\", \"E\", \"F\", \"Gb\", \"G\", \"Ab\", \"A\", \"Bb\", \"B\"]\n# Keys that conventionally use flats (major tonic names + their relative minors).\nFLAT_KEY_TONICS = {\n    \"F\",\n    \"Bb\",\n    \"Eb\",\n    \"Ab\",\n    \"Db\",\n    \"Gb\",",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "FLAT_NAMES",
+        "kind": 5,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "FLAT_NAMES = [\"C\", \"Db\", \"D\", \"Eb\", \"E\", \"F\", \"Gb\", \"G\", \"Ab\", \"A\", \"Bb\", \"B\"]\n# Keys that conventionally use flats (major tonic names + their relative minors).\nFLAT_KEY_TONICS = {\n    \"F\",\n    \"Bb\",\n    \"Eb\",\n    \"Ab\",\n    \"Db\",\n    \"Gb\",\n    \"Cb\",",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "FLAT_KEY_TONICS",
+        "kind": 5,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "FLAT_KEY_TONICS = {\n    \"F\",\n    \"Bb\",\n    \"Eb\",\n    \"Ab\",\n    \"Db\",\n    \"Gb\",\n    \"Cb\",\n    \"D\",\n    \"G\",",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "NOTE_TO_SEMITONE",
+        "kind": 5,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "NOTE_TO_SEMITONE = {\n    \"C\": 0,\n    \"B#\": 0,\n    \"C#\": 1,\n    \"Db\": 1,\n    \"D\": 2,\n    \"D#\": 3,\n    \"Eb\": 3,\n    \"E\": 4,\n    \"Fb\": 4,",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "CYRILLIC_ROOT_LOOKALIKES",
+        "kind": 5,
+        "importPath": "app.music_utils",
+        "description": "app.music_utils",
+        "peekOfCode": "CYRILLIC_ROOT_LOOKALIKES = {\n    \"А\": \"A\",\n    \"В\": \"B\",\n    \"С\": \"C\",\n    \"Е\": \"E\",\n    \"Н\": \"H\",\n    \"К\": \"K\",\n    \"М\": \"M\",\n    \"О\": \"O\",\n    \"Р\": \"P\",",
+        "detail": "app.music_utils",
+        "documentation": {}
+    },
+    {
+        "label": "PDFImportError",
+        "kind": 6,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "class PDFImportError(Exception):\n    \"\"\"Raised when a PDF cannot be processed into song data.\"\"\"\nDECORATIVE_RE = re.compile(r\"[A-Za-zА-Яа-яЁё0-9]\")\nSECTION_HEADER_STRIP_RE = re.compile(r\"[0-9\\s\\.,:;!?()\\-–—•/\\\\]+\")\nBPM_RE = re.compile(r\"(\\d{2,3})\\s*BPM\", re.IGNORECASE)\nTIME_SIG_RE = re.compile(r\"(\\d{1,2}\\s*/\\s*\\d{1,2})\")\ndef _uid() -> str:\n    return uuid.uuid4().hex\ndef empty_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"line\", \"lyrics\": \"\", \"chords\": []}",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "empty_line",
+        "kind": 2,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "def empty_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"line\", \"lyrics\": \"\", \"chords\": []}\ndef section_line(label: str, key: Optional[str]) -> dict:\n    return {\"id\": _uid(), \"type\": \"section\", \"label\": label, \"key\": key, \"chords\": []}\ndef instrumental_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"chords\", \"chords\": []}\ndef _iter_text_lines(layout) -> Iterable[LTTextLine]:\n    if isinstance(layout, LTTextContainer):\n        for text_line in layout:\n            if isinstance(text_line, LTTextLine):",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "section_line",
+        "kind": 2,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "def section_line(label: str, key: Optional[str]) -> dict:\n    return {\"id\": _uid(), \"type\": \"section\", \"label\": label, \"key\": key, \"chords\": []}\ndef instrumental_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"chords\", \"chords\": []}\ndef _iter_text_lines(layout) -> Iterable[LTTextLine]:\n    if isinstance(layout, LTTextContainer):\n        for text_line in layout:\n            if isinstance(text_line, LTTextLine):\n                yield text_line\n    if hasattr(layout, \"_objs\"):",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "instrumental_line",
+        "kind": 2,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "def instrumental_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"chords\", \"chords\": []}\ndef _iter_text_lines(layout) -> Iterable[LTTextLine]:\n    if isinstance(layout, LTTextContainer):\n        for text_line in layout:\n            if isinstance(text_line, LTTextLine):\n                yield text_line\n    if hasattr(layout, \"_objs\"):\n        for element in layout._objs:  # type: ignore[attr-defined]\n            yield from _iter_text_lines(element)",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "extract_pdf_lines",
+        "kind": 2,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "def extract_pdf_lines(data: bytes) -> list[str]:\n    if not data:\n        raise PDFImportError(\"Пустой файл PDF\")\n    lines: list[str] = []\n    laparams = LAParams(line_overlap=0.5, line_margin=0.2, char_margin=2.0, word_margin=0.1, boxes_flow=None)\n    try:\n        with io.BytesIO(data) as buffer:\n            for page_layout in extract_pages(buffer, laparams=laparams):\n                for text_line in _iter_text_lines(page_layout):\n                    current = \"\"",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "parse_song_document",
+        "kind": 2,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "def parse_song_document(raw_lines: Optional[Iterable[str]]) -> dict:\n    source = list(raw_lines or [])\n    lines = [line.strip() for line in source]\n    title, bpm, time_signature, rest_index = _extract_header_meta(lines)\n    items = _tokenize(lines[rest_index:])\n    result_lines: list[dict] = []\n    current_key: Optional[str] = None\n    primary_key: Optional[str] = None\n    i = 0\n    while i < len(items):",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "import_pdf_document",
+        "kind": 2,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "def import_pdf_document(data: bytes) -> dict:\n    raw_lines = extract_pdf_lines(data)\n    return parse_song_document(raw_lines)",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "DECORATIVE_RE",
+        "kind": 5,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "DECORATIVE_RE = re.compile(r\"[A-Za-zА-Яа-яЁё0-9]\")\nSECTION_HEADER_STRIP_RE = re.compile(r\"[0-9\\s\\.,:;!?()\\-–—•/\\\\]+\")\nBPM_RE = re.compile(r\"(\\d{2,3})\\s*BPM\", re.IGNORECASE)\nTIME_SIG_RE = re.compile(r\"(\\d{1,2}\\s*/\\s*\\d{1,2})\")\ndef _uid() -> str:\n    return uuid.uuid4().hex\ndef empty_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"line\", \"lyrics\": \"\", \"chords\": []}\ndef section_line(label: str, key: Optional[str]) -> dict:\n    return {\"id\": _uid(), \"type\": \"section\", \"label\": label, \"key\": key, \"chords\": []}",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "SECTION_HEADER_STRIP_RE",
+        "kind": 5,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "SECTION_HEADER_STRIP_RE = re.compile(r\"[0-9\\s\\.,:;!?()\\-–—•/\\\\]+\")\nBPM_RE = re.compile(r\"(\\d{2,3})\\s*BPM\", re.IGNORECASE)\nTIME_SIG_RE = re.compile(r\"(\\d{1,2}\\s*/\\s*\\d{1,2})\")\ndef _uid() -> str:\n    return uuid.uuid4().hex\ndef empty_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"line\", \"lyrics\": \"\", \"chords\": []}\ndef section_line(label: str, key: Optional[str]) -> dict:\n    return {\"id\": _uid(), \"type\": \"section\", \"label\": label, \"key\": key, \"chords\": []}\ndef instrumental_line() -> dict:",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "BPM_RE",
+        "kind": 5,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "BPM_RE = re.compile(r\"(\\d{2,3})\\s*BPM\", re.IGNORECASE)\nTIME_SIG_RE = re.compile(r\"(\\d{1,2}\\s*/\\s*\\d{1,2})\")\ndef _uid() -> str:\n    return uuid.uuid4().hex\ndef empty_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"line\", \"lyrics\": \"\", \"chords\": []}\ndef section_line(label: str, key: Optional[str]) -> dict:\n    return {\"id\": _uid(), \"type\": \"section\", \"label\": label, \"key\": key, \"chords\": []}\ndef instrumental_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"chords\", \"chords\": []}",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "TIME_SIG_RE",
+        "kind": 5,
+        "importPath": "app.pdf_import",
+        "description": "app.pdf_import",
+        "peekOfCode": "TIME_SIG_RE = re.compile(r\"(\\d{1,2}\\s*/\\s*\\d{1,2})\")\ndef _uid() -> str:\n    return uuid.uuid4().hex\ndef empty_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"line\", \"lyrics\": \"\", \"chords\": []}\ndef section_line(label: str, key: Optional[str]) -> dict:\n    return {\"id\": _uid(), \"type\": \"section\", \"label\": label, \"key\": key, \"chords\": []}\ndef instrumental_line() -> dict:\n    return {\"id\": _uid(), \"type\": \"chords\", \"chords\": []}\ndef _iter_text_lines(layout) -> Iterable[LTTextLine]:",
+        "detail": "app.pdf_import",
+        "documentation": {}
+    },
+    {
+        "label": "APIModel",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class APIModel(BaseModel):\n    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)\nclass SongChord(APIModel):\n    id: str\n    position: int = 0\n    chord: str\nclass SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\"] = \"line\"\n    lyrics: str = \"\"",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SongChord",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SongChord(APIModel):\n    id: str\n    position: int = 0\n    chord: str\nclass SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SongLine",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None\n    chords: List[SongChord] = Field(default_factory=list)\nclass PDFImportResult(APIModel):\n    title: Optional[str] = None\n    bpm: Optional[int] = None",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "PDFImportResult",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class PDFImportResult(APIModel):\n    title: Optional[str] = None\n    bpm: Optional[int] = None\n    time_signature: Optional[str] = None\n    primary_key: Optional[str] = None\n    lines: List[SongLine] = Field(default_factory=list)\nclass SongBase(APIModel):\n    id: str\n    setlist_slug: str\n    title: str",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SongBase",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SongBase(APIModel):\n    id: str\n    setlist_slug: str\n    title: str\n    key: str = \"C\"\n    original_key: Optional[str] = None\n    bpm: Optional[int] = None\n    time_signature: str = \"4/4\"\n    position: int = 0\n    created_at: datetime",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SongSummary",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SongSummary(SongBase):\n    pass\nclass SongDetail(SongBase):\n    lines: List[SongLine]\nclass SongCreate(APIModel):\n    title: Optional[str] = None\n    key: Optional[str] = None\n    original_key: Optional[str] = None\n    bpm: Optional[int] = None\n    time_signature: Optional[str] = None",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SongDetail",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SongDetail(SongBase):\n    lines: List[SongLine]\nclass SongCreate(APIModel):\n    title: Optional[str] = None\n    key: Optional[str] = None\n    original_key: Optional[str] = None\n    bpm: Optional[int] = None\n    time_signature: Optional[str] = None\n    lines: Optional[List[SongLine]] = None\nclass SongUpdate(SongCreate):",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SongCreate",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SongCreate(APIModel):\n    title: Optional[str] = None\n    key: Optional[str] = None\n    original_key: Optional[str] = None\n    bpm: Optional[int] = None\n    time_signature: Optional[str] = None\n    lines: Optional[List[SongLine]] = None\nclass SongUpdate(SongCreate):\n    pass\nclass ReorderPayload(APIModel):",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SongUpdate",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SongUpdate(SongCreate):\n    pass\nclass ReorderPayload(APIModel):\n    order: List[str]",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "ReorderPayload",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class ReorderPayload(APIModel):\n    order: List[str]",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "to_camel",
+        "kind": 2,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "def to_camel(string: str) -> str:\n    parts = string.split(\"_\")\n    return parts[0] + \"\".join(word.capitalize() for word in parts[1:])\nclass APIModel(BaseModel):\n    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)\nclass SongChord(APIModel):\n    id: str\n    position: int = 0\n    chord: str\nclass SongLine(APIModel):",
+        "detail": "app.schemas",
+        "documentation": {}
+    }
+]
