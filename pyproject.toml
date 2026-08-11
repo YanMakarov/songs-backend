@@ -8,7 +8,7 @@ dependencies = [
   "fastapi>=0.111,<0.112",
   "uvicorn[standard]>=0.29,<0.30",
   "sqlmodel>=0.0.16,<0.0.17",
-  "pdfminer.six>=20231228,<2025.0"
+  "pdfminer.six>=20231228,<2026.0",
 ]
 
 [build-system]
