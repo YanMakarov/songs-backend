@@ -1,0 +1,104 @@
+name: Backend CI & Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.11"
+  DEPLOY_PATH: /srv/apps/songs-backend
+  REMOTE_VENV: /srv/apps/songs-backend/.venv
+  SYSTEMD_SERVICE: songs-backend
+  DEPLOY_BRANCH: main
+
+jobs:
+  backend-ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Bytecode/typing smoke check
+        run: python -m compileall app
+
+  deploy:
+    needs: backend-ci
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.BACKEND_SSH_KEY }}
+
+      - name: Add remote host to known_hosts
+        env:
+          DEPLOY_HOST: ${{ secrets.BACKEND_SSH_HOST }}
+          DEPLOY_PORT: ${{ secrets.BACKEND_SSH_PORT }}
+        run: |
+          if [ -z "${DEPLOY_HOST}" ]; then
+            echo "Secret BACKEND_SSH_HOST is required" >&2
+            exit 1
+          fi
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -p "${DEPLOY_PORT:-22}" "${DEPLOY_HOST}" >> ~/.ssh/known_hosts
+
+      - name: Update server repo and restart service
+        env:
+          DEPLOY_HOST: ${{ secrets.BACKEND_SSH_HOST }}
+          DEPLOY_PORT: ${{ secrets.BACKEND_SSH_PORT }}
+          DEPLOY_USER: ${{ secrets.BACKEND_SSH_USER }}
+          DEPLOY_PATH: ${{ env.DEPLOY_PATH }}
+          REMOTE_VENV: ${{ env.REMOTE_VENV }}
+          SYSTEMD_SERVICE: ${{ env.SYSTEMD_SERVICE }}
+          DEPLOY_BRANCH: ${{ env.DEPLOY_BRANCH }}
+        run: |
+          if [ -z "${DEPLOY_HOST}" ] || [ -z "${DEPLOY_USER}" ]; then
+            echo "BACKEND_SSH_HOST and BACKEND_SSH_USER secrets are required" >&2
+            exit 1
+          fi
+          ssh -p "${DEPLOY_PORT:-22}" "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "DEPLOY_PATH='${DEPLOY_PATH}' REMOTE_VENV='${REMOTE_VENV}' SYSTEMD_SERVICE='${SYSTEMD_SERVICE}' DEPLOY_BRANCH='${DEPLOY_BRANCH}' bash -s" <<'EOF'
+set -euo pipefail
+
+cd "$DEPLOY_PATH"
+
+if [ ! -d .git ]; then
+  echo "${DEPLOY_PATH} is not a git repository" >&2
+  exit 1
+fi
+
+git fetch --prune origin "$DEPLOY_BRANCH"
+git checkout "$DEPLOY_BRANCH"
+git reset --hard "origin/$DEPLOY_BRANCH"
+
+if [ ! -d "$REMOTE_VENV" ]; then
+  python3 -m venv "$REMOTE_VENV"
+fi
+
+"$REMOTE_VENV/bin/pip" install --upgrade pip wheel setuptools
+"$REMOTE_VENV/bin/pip" install -e .
+
+sudo systemctl daemon-reload
+sudo systemctl restart "$SYSTEMD_SERVICE"
+sudo systemctl --no-pager status "$SYSTEMD_SERVICE"
+EOF
