@@ -60,7 +60,7 @@ FastAPI service that powers the Songs editor.
 | `BACKEND_SSH_PORT` | `22` | Optional; omit for port 22 | 
 | `BACKEND_SSH_USER` | `songs` | Must own `/srv/apps/songs-backend` and have passwordless sudo for `systemctl` and `cp` (see below) |
 | `BACKEND_SSH_KEY` | *(PEM private key)* | Private key granting SSH access for the user above |
-
+ 
 Generate the SSH key pair locally (`ssh-keygen -t ed25519 -f songs-backend-deploy`), add the **public** part to `~songs/.ssh/authorized_keys`, and store the **private** part verbatim (including `-----BEGIN`/`END-----`) in the `BACKEND_SSH_KEY` secret.
 
 The deploy user needs passwordless sudo for these commands (create `/etc/sudoers.d/songs-backend`):
