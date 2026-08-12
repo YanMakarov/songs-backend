@@ -11,6 +11,7 @@ env:
   REMOTE_PYTHON: python3.11
   DEPLOY_PATH: /srv/apps/songs-backend
   SYSTEMD_SERVICE: songs-backend
+  REPO_URL: git@github.com:YanMakarov/songs-backend.git
 
 jobs:
   backend-ci:
