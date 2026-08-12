@@ -88,6 +88,14 @@
         "documentation": {}
     },
     {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
         "label": "APIRouter",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -121,6 +129,30 @@
     },
     {
         "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
         "importPath": "fastapi",
         "description": "fastapi",
         "isExtraImport": true,
@@ -551,6 +583,33 @@
         "documentation": {}
     },
     {
+        "label": "get_setlist",
+        "kind": 2,
+        "importPath": "app.api.setlists",
+        "description": "app.api.setlists",
+        "peekOfCode": "def get_setlist(setlist_slug: str, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    return crud._to_setlist_base(setlist)\n@router.patch(\"/{setlist_slug}\", response_model=SetlistBase)\ndef update_setlist(setlist_slug: str, payload: SetlistUpdate, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")",
+        "detail": "app.api.setlists",
+        "documentation": {}
+    },
+    {
+        "label": "update_setlist",
+        "kind": 2,
+        "importPath": "app.api.setlists",
+        "description": "app.api.setlists",
+        "peekOfCode": "def update_setlist(setlist_slug: str, payload: SetlistUpdate, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    return crud._to_setlist_base(\n        crud.update_setlist(session, setlist, payload.name, payload.description)\n    )",
+        "detail": "app.api.setlists",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "app.api.setlists",
+        "description": "app.api.setlists",
+        "peekOfCode": "router = APIRouter(prefix=\"/setlists\", tags=[\"setlists\"])\n@router.get(\"/{setlist_slug}\", response_model=SetlistBase)\ndef get_setlist(setlist_slug: str, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)\n    if not setlist:\n        raise HTTPException(status_code=404, detail=\"Setlist not found\")\n    return crud._to_setlist_base(setlist)\n@router.patch(\"/{setlist_slug}\", response_model=SetlistBase)\ndef update_setlist(setlist_slug: str, payload: SetlistUpdate, session=Depends(get_session)):\n    setlist = crud.get_setlist(session, setlist_slug)",
+        "detail": "app.api.setlists",
+        "documentation": {}
+    },
+    {
         "label": "list_songs",
         "kind": 2,
         "importPath": "app.api.songs",
@@ -654,7 +713,16 @@
         "kind": 2,
         "importPath": "app.crud",
         "description": "app.crud",
-        "peekOfCode": "def get_setlist(session: Session, slug: str) -> Setlist | None:\n    return session.exec(select(Setlist).where(Setlist.slug == slug)).first()\ndef _to_summary(song: Song, setlist: Setlist) -> SongSummary:\n    return SongSummary(\n        id=song.id,\n        setlist_slug=setlist.slug,\n        title=song.title,\n        key=song.key,\n        original_key=song.original_key,\n        bpm=song.bpm,",
+        "peekOfCode": "def get_setlist(session: Session, slug: str) -> Setlist | None:\n    return session.exec(select(Setlist).where(Setlist.slug == slug)).first()\ndef _to_setlist_base(setlist: Setlist) -> SetlistBase:\n    return SetlistBase(\n        slug=setlist.slug,\n        name=setlist.name,\n        description=setlist.description,\n    )\ndef update_setlist(session: Session, setlist: Setlist, name: str | None, description: str | None) -> Setlist:\n    if name is not None:",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "update_setlist",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def update_setlist(session: Session, setlist: Setlist, name: str | None, description: str | None) -> Setlist:\n    if name is not None:\n        setlist.name = name\n    if description is not None:\n        setlist.description = description\n    session.add(setlist)\n    session.commit()\n    session.refresh(setlist)\n    return setlist\ndef _to_summary(song: Song, setlist: Setlist) -> SongSummary:",
         "detail": "app.crud",
         "documentation": {}
     },
@@ -1131,7 +1199,7 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class SongUpdate(SongCreate):\n    pass\nclass ReorderPayload(APIModel):\n    order: List[str]",
+        "peekOfCode": "class SongUpdate(SongCreate):\n    pass\nclass ReorderPayload(APIModel):\n    order: List[str]\nclass SetlistBase(APIModel):\n    slug: str\n    name: str\n    description: Optional[str] = None\nclass SetlistUpdate(APIModel):\n    name: Optional[str] = None",
         "detail": "app.schemas",
         "documentation": {}
     },
@@ -1140,7 +1208,25 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class ReorderPayload(APIModel):\n    order: List[str]",
+        "peekOfCode": "class ReorderPayload(APIModel):\n    order: List[str]\nclass SetlistBase(APIModel):\n    slug: str\n    name: str\n    description: Optional[str] = None\nclass SetlistUpdate(APIModel):\n    name: Optional[str] = None\n    description: Optional[str] = None",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SetlistBase",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SetlistBase(APIModel):\n    slug: str\n    name: str\n    description: Optional[str] = None\nclass SetlistUpdate(APIModel):\n    name: Optional[str] = None\n    description: Optional[str] = None",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "SetlistUpdate",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class SetlistUpdate(APIModel):\n    name: Optional[str] = None\n    description: Optional[str] = None",
         "detail": "app.schemas",
         "documentation": {}
     },

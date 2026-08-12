@@ -76,3 +76,14 @@ class SongUpdate(SongCreate):
 
 class ReorderPayload(APIModel):
     order: List[str]
+
+
+class SetlistBase(APIModel):
+    slug: str
+    name: str
+    description: Optional[str] = None
+
+
+class SetlistUpdate(APIModel):
+    name: Optional[str] = None
+    description: Optional[str] = None

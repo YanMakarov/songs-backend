@@ -9,7 +9,7 @@ from sqlmodel import Session, select
 
 from . import markdown_utils
 from .models import Setlist, Song
-from .schemas import ReorderPayload, SongCreate, SongDetail, SongLine, SongSummary, SongUpdate
+from .schemas import ReorderPayload, SongCreate, SongDetail, SongLine, SongSummary, SongUpdate, SetlistBase
 
 
 def ensure_setlist(session: Session, slug: str, name: str) -> Setlist:
@@ -25,6 +25,25 @@ def ensure_setlist(session: Session, slug: str, name: str) -> Setlist:
 
 def get_setlist(session: Session, slug: str) -> Setlist | None:
     return session.exec(select(Setlist).where(Setlist.slug == slug)).first()
+
+
+def _to_setlist_base(setlist: Setlist) -> SetlistBase:
+    return SetlistBase(
+        slug=setlist.slug,
+        name=setlist.name,
+        description=setlist.description,
+    )
+
+
+def update_setlist(session: Session, setlist: Setlist, name: str | None, description: str | None) -> Setlist:
+    if name is not None:
+        setlist.name = name
+    if description is not None:
+        setlist.description = description
+    session.add(setlist)
+    session.commit()
+    session.refresh(setlist)
+    return setlist
 
 
 def _to_summary(song: Song, setlist: Setlist) -> SongSummary:
