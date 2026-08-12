@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=songs
-Group=songs
+User=root
+Group=root
 WorkingDirectory=/srv/apps/songs-backend
 EnvironmentFile=-/srv/apps/songs-backend/.env
 Environment=RELOAD=0
