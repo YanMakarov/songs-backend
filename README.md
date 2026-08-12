@@ -8,7 +8,7 @@ FastAPI service that powers the Songs editor.
 - CI installs the backend in editable mode and runs a bytecode smoke test to catch syntax regressions before touching the server.
 - The `deploy` job SSHes into `/srv/apps/songs-backend`, executes `git fetch && git reset --hard origin/main`, refreshes the virtualenv, and restarts the `songs-backend` systemd unit. Because the server pulls directly from GitHub, host-only files like `.env` or `songs.db` are left untouched.
  
-## One-time server setup 
+## One-time server setup
 
 1. **Provision packages**
    ```bash
