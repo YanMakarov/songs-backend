@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import re
 from typing import Iterable, List
 
 from .models import generate_public_id
 from .schemas import SongChord, SongLine
+
+_REPEAT_RE = re.compile(r"^[xх](\d{1,3})$", re.IGNORECASE)
 
 
 def _ensure_line(line: SongLine | dict) -> SongLine:
@@ -29,8 +32,12 @@ def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:
             rendered.append(f"## {label}{key_suffix}".rstrip())
             continue
         if line.type == "chords":
-            chords = " ".join(ch.chord.strip() for ch in sorted(line.chords, key=lambda c: c.position) if ch.chord)
-            rendered.append(f":: {chords}".rstrip())
+            chord_str = " ".join(ch.chord.strip() for ch in sorted(line.chords, key=lambda c: c.position) if ch.chord)
+            parts = [chord_str] if chord_str else []
+            if line.repeat_count and line.repeat_count > 1:
+                parts.append(f"x{line.repeat_count}")
+            body = " ".join(parts)
+            rendered.append(f":: {body}".rstrip() if body else "::")
             continue
         rendered.append(_render_lyric_line(line))
     return "\n".join(rendered).strip() or ""
@@ -85,8 +92,19 @@ def _parse_section_line(raw: str) -> SongLine:
 def _parse_chords_line(raw: str) -> SongLine:
     payload = raw[2:].strip()
     tokens = [token for token in payload.split() if token]
+    repeat_count = None
+    if tokens:
+        match = _REPEAT_RE.match(tokens[-1])
+        if match:
+            repeat_count = int(match.group(1))
+            tokens = tokens[:-1]
     chords = [SongChord(id=generate_public_id(), position=index, chord=token) for index, token in enumerate(tokens)]
-    return SongLine(id=generate_public_id(), type="chords", chords=chords)
+    return SongLine(
+        id=generate_public_id(),
+        type="chords",
+        chords=chords,
+        repeat_count=repeat_count,
+    )
 
 
 def _parse_lyric_line(raw: str) -> SongLine:

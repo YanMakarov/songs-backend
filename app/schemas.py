@@ -29,6 +29,7 @@ class SongLine(APIModel):
     lyrics: str = ""
     label: Optional[str] = None
     key: Optional[str] = None
+    repeat_count: Optional[int] = None
     chords: List[SongChord] = Field(default_factory=list)
 
 

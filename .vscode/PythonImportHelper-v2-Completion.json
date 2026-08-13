@@ -473,6 +473,15 @@
         "documentation": {}
     },
     {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
         "label": "secrets",
         "kind": 6,
         "isExtraImport": true,
@@ -488,15 +497,6 @@
         "importPath": "time",
         "description": "time",
         "detail": "time",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
         "documentation": {}
     },
     {
@@ -889,6 +889,15 @@
         "documentation": {}
     },
     {
+        "label": "_REPEAT_RE",
+        "kind": 5,
+        "importPath": "app.markdown_utils",
+        "description": "app.markdown_utils",
+        "peekOfCode": "_REPEAT_RE = re.compile(r\"^[xх](\\d{1,3})$\", re.IGNORECASE)\ndef _ensure_line(line: SongLine | dict) -> SongLine:\n    return line if isinstance(line, SongLine) else SongLine.model_validate(line)\ndef _ensure_chord(chord: SongChord | dict) -> SongChord:\n    return chord if isinstance(chord, SongChord) else SongChord.model_validate(chord)\ndef lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:\n    rendered: List[str] = []\n    for raw_line in lines:\n        line = _ensure_line(raw_line)\n        if line.type == \"pagebreak\":",
+        "detail": "app.markdown_utils",
+        "documentation": {}
+    },
+    {
         "label": "Setlist",
         "kind": 6,
         "importPath": "app.models",
@@ -1145,7 +1154,7 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\", \"pagebreak\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None\n    chords: List[SongChord] = Field(default_factory=list)\nclass PDFImportResult(APIModel):\n    title: Optional[str] = None\n    bpm: Optional[int] = None",
+        "peekOfCode": "class SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\", \"pagebreak\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None\n    repeat_count: Optional[int] = None\n    chords: List[SongChord] = Field(default_factory=list)\nclass PDFImportResult(APIModel):\n    title: Optional[str] = None",
         "detail": "app.schemas",
         "documentation": {}
     },
