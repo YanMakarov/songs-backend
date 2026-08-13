@@ -25,7 +25,7 @@ class SongChord(APIModel):
 
 class SongLine(APIModel):
     id: str
-    type: Literal["line", "section", "chords"] = "line"
+    type: Literal["line", "section", "chords", "pagebreak"] = "line"
     lyrics: str = ""
     label: Optional[str] = None
     key: Optional[str] = None

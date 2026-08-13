@@ -20,6 +20,9 @@ def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:
     rendered: List[str] = []
     for raw_line in lines:
         line = _ensure_line(raw_line)
+        if line.type == "pagebreak":
+            rendered.append("---")
+            continue
         if line.type == "section":
             label = (line.label or "").strip()
             key_suffix = f" {{key={line.key.strip()}}}" if line.key else ""
@@ -56,7 +59,9 @@ def markdown_to_lines(markdown: str) -> List[SongLine]:
     lines: List[SongLine] = []
     for raw in raw_lines:
         stripped = raw.rstrip()
-        if stripped.startswith("##"):
+        if stripped == "---":
+            lines.append(SongLine(id=generate_public_id(), type="pagebreak", chords=[]))
+        elif stripped.startswith("##"):
             lines.append(_parse_section_line(stripped))
         elif stripped.startswith("::"):
             lines.append(_parse_chords_line(stripped))

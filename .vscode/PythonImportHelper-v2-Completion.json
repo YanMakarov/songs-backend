@@ -857,7 +857,7 @@
         "kind": 2,
         "importPath": "app.markdown_utils",
         "description": "app.markdown_utils",
-        "peekOfCode": "def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:\n    rendered: List[str] = []\n    for raw_line in lines:\n        line = _ensure_line(raw_line)\n        if line.type == \"section\":\n            label = (line.label or \"\").strip()\n            key_suffix = f\" {{key={line.key.strip()}}}\" if line.key else \"\"\n            rendered.append(f\"## {label}{key_suffix}\".rstrip())\n            continue\n        if line.type == \"chords\":",
+        "peekOfCode": "def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:\n    rendered: List[str] = []\n    for raw_line in lines:\n        line = _ensure_line(raw_line)\n        if line.type == \"pagebreak\":\n            rendered.append(\"---\")\n            continue\n        if line.type == \"section\":\n            label = (line.label or \"\").strip()\n            key_suffix = f\" {{key={line.key.strip()}}}\" if line.key else \"\"",
         "detail": "app.markdown_utils",
         "documentation": {}
     },
@@ -866,7 +866,7 @@
         "kind": 2,
         "importPath": "app.markdown_utils",
         "description": "app.markdown_utils",
-        "peekOfCode": "def markdown_to_lines(markdown: str) -> List[SongLine]:\n    raw_lines = markdown.splitlines() if markdown else []\n    lines: List[SongLine] = []\n    for raw in raw_lines:\n        stripped = raw.rstrip()\n        if stripped.startswith(\"##\"):\n            lines.append(_parse_section_line(stripped))\n        elif stripped.startswith(\"::\"):\n            lines.append(_parse_chords_line(stripped))\n        else:",
+        "peekOfCode": "def markdown_to_lines(markdown: str) -> List[SongLine]:\n    raw_lines = markdown.splitlines() if markdown else []\n    lines: List[SongLine] = []\n    for raw in raw_lines:\n        stripped = raw.rstrip()\n        if stripped == \"---\":\n            lines.append(SongLine(id=generate_public_id(), type=\"pagebreak\", chords=[]))\n        elif stripped.startswith(\"##\"):\n            lines.append(_parse_section_line(stripped))\n        elif stripped.startswith(\"::\"):",
         "detail": "app.markdown_utils",
         "documentation": {}
     },
@@ -1127,7 +1127,7 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class APIModel(BaseModel):\n    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)\nclass SongChord(APIModel):\n    id: str\n    position: int = 0\n    chord: str\nclass SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\"] = \"line\"\n    lyrics: str = \"\"",
+        "peekOfCode": "class APIModel(BaseModel):\n    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)\nclass SongChord(APIModel):\n    id: str\n    position: int = 0\n    chord: str\nclass SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\", \"pagebreak\"] = \"line\"\n    lyrics: str = \"\"",
         "detail": "app.schemas",
         "documentation": {}
     },
@@ -1136,7 +1136,7 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class SongChord(APIModel):\n    id: str\n    position: int = 0\n    chord: str\nclass SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None",
+        "peekOfCode": "class SongChord(APIModel):\n    id: str\n    position: int = 0\n    chord: str\nclass SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\", \"pagebreak\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None",
         "detail": "app.schemas",
         "documentation": {}
     },
@@ -1145,7 +1145,7 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None\n    chords: List[SongChord] = Field(default_factory=list)\nclass PDFImportResult(APIModel):\n    title: Optional[str] = None\n    bpm: Optional[int] = None",
+        "peekOfCode": "class SongLine(APIModel):\n    id: str\n    type: Literal[\"line\", \"section\", \"chords\", \"pagebreak\"] = \"line\"\n    lyrics: str = \"\"\n    label: Optional[str] = None\n    key: Optional[str] = None\n    chords: List[SongChord] = Field(default_factory=list)\nclass PDFImportResult(APIModel):\n    title: Optional[str] = None\n    bpm: Optional[int] = None",
         "detail": "app.schemas",
         "documentation": {}
     },
