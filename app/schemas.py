@@ -21,6 +21,7 @@ class SongChord(APIModel):
     id: str
     position: int = 0
     chord: str
+    voicing: Optional[str] = None
 
 
 class SongLine(APIModel):

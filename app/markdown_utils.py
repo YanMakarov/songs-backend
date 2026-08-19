@@ -9,6 +9,22 @@ from .models import generate_public_id
 from .schemas import SongChord, SongLine
 
 _REPEAT_RE = re.compile(r"^[xх](\d{1,3})$", re.IGNORECASE)
+_VOICING_RE = re.compile(r"^[0-9a-f]{6}$")
+
+
+def _format_chord_token(chord: SongChord) -> str:
+    symbol = chord.chord.strip()
+    if chord.voicing and _VOICING_RE.match(chord.voicing):
+        return f"{symbol}:{chord.voicing}"
+    return symbol
+
+
+def _split_chord_token(token: str) -> tuple[str, str | None]:
+    if ":" in token:
+        symbol, _, code = token.rpartition(":")
+        if symbol and _VOICING_RE.match(code):
+            return symbol, code
+    return token, None
 
 
 def _ensure_line(line: SongLine | dict) -> SongLine:
@@ -32,7 +48,7 @@ def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:
             rendered.append(f"## {label}{key_suffix}".rstrip())
             continue
         if line.type == "chords":
-            chord_str = " ".join(ch.chord.strip() for ch in sorted(line.chords, key=lambda c: c.position) if ch.chord)
+            chord_str = " ".join(_format_chord_token(ch) for ch in sorted(line.chords, key=lambda c: c.position) if ch.chord)
             parts = [chord_str] if chord_str else []
             if line.repeat_count and line.repeat_count > 1:
                 parts.append(f"x{line.repeat_count}")
@@ -53,9 +69,8 @@ def _render_lyric_line(line: SongLine) -> str:
     for chord in sorted_chords:
         pos = max(0, min(len(text), chord.position))
         acc.append(text[cursor:pos])
-        symbol = chord.chord.strip()
-        if symbol:
-            acc.append(f"[{symbol}]")
+        if chord.chord.strip():
+            acc.append(f"[{_format_chord_token(chord)}]")
         cursor = pos
     acc.append(text[cursor:])
     return "".join(acc)
@@ -98,7 +113,10 @@ def _parse_chords_line(raw: str) -> SongLine:
         if match:
             repeat_count = int(match.group(1))
             tokens = tokens[:-1]
-    chords = [SongChord(id=generate_public_id(), position=index, chord=token) for index, token in enumerate(tokens)]
+    chords = []
+    for index, token in enumerate(tokens):
+        symbol, voicing = _split_chord_token(token)
+        chords.append(SongChord(id=generate_public_id(), position=index, chord=symbol, voicing=voicing))
     return SongLine(
         id=generate_public_id(),
         type="chords",
@@ -121,7 +139,8 @@ def _parse_lyric_line(raw: str) -> SongLine:
             chord_text = raw[idx + 1 : closing].strip()
             if chord_text:
                 position = len("".join(text_parts))
-                chords.append(SongChord(id=generate_public_id(), position=position, chord=chord_text))
+                symbol, voicing = _split_chord_token(chord_text)
+                chords.append(SongChord(id=generate_public_id(), position=position, chord=symbol, voicing=voicing))
             idx = closing + 1
         else:
             text_parts.append(raw[idx])
