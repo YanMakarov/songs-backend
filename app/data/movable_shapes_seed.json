@@ -1,0 +1,17 @@
+[
+  { "name": "E — мажор", "rootString": 0, "offsets": [0, 2, 2, 1, 0, 0], "isCustom": false },
+  { "name": "E — минор", "rootString": 0, "offsets": [0, 2, 2, 0, 0, 0], "isCustom": false },
+  { "name": "E — септаккорд (7)", "rootString": 0, "offsets": [0, 2, 0, 1, 0, 0], "isCustom": false },
+  { "name": "E — минорный септ (m7)", "rootString": 0, "offsets": [0, 2, 0, 0, 0, 0], "isCustom": false },
+  { "name": "E — большой септ (maj7)", "rootString": 0, "offsets": [0, 2, 1, 1, 0, 0], "isCustom": false },
+  { "name": "E — sus4", "rootString": 0, "offsets": [0, 2, 2, 2, 0, 0], "isCustom": false },
+  { "name": "E — квинта (5)", "rootString": 0, "offsets": [0, 2, 2, null, null, null], "isCustom": false },
+  { "name": "A — мажор", "rootString": 1, "offsets": [null, 0, 2, 2, 2, 0], "isCustom": false },
+  { "name": "A — минор", "rootString": 1, "offsets": [null, 0, 2, 2, 1, 0], "isCustom": false },
+  { "name": "A — септаккорд (7)", "rootString": 1, "offsets": [null, 0, 2, 0, 2, 0], "isCustom": false },
+  { "name": "A — минорный септ (m7)", "rootString": 1, "offsets": [null, 0, 2, 0, 1, 0], "isCustom": false },
+  { "name": "A — большой септ (maj7)", "rootString": 1, "offsets": [null, 0, 2, 1, 2, 0], "isCustom": false },
+  { "name": "A — sus4", "rootString": 1, "offsets": [null, 0, 2, 2, 3, 0], "isCustom": false },
+  { "name": "A — sus2", "rootString": 1, "offsets": [null, 0, 2, 2, 0, 0], "isCustom": false },
+  { "name": "A — квинта (5)", "rootString": 1, "offsets": [null, 0, 2, 2, null, null], "isCustom": false }
+]

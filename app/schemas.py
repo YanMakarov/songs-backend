@@ -80,6 +80,22 @@ class ReorderPayload(APIModel):
     order: List[str]
 
 
+class MovableShapeBase(APIModel):
+    name: Optional[str] = None
+    root_string: int
+    offsets: List[Optional[int]]
+    is_custom: bool = False
+
+
+class MovableShapeCreate(MovableShapeBase):
+    pass
+
+
+class MovableShapeOut(MovableShapeBase):
+    id: str
+    created_at: datetime
+
+
 class SetlistBase(APIModel):
     slug: str
     name: str

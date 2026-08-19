@@ -2,14 +2,24 @@
 
 from __future__ import annotations
 
+import json
 from datetime import datetime
 from typing import Iterable, List
 
 from sqlmodel import Session, select
 
 from . import markdown_utils
-from .models import Setlist, Song
-from .schemas import ReorderPayload, SongCreate, SongDetail, SongLine, SongSummary, SongUpdate, SetlistBase
+from .models import MovableShape, Setlist, Song
+from .schemas import (
+    MovableShapeCreate,
+    ReorderPayload,
+    SongCreate,
+    SongDetail,
+    SongLine,
+    SongSummary,
+    SongUpdate,
+    SetlistBase,
+)
 
 
 def ensure_setlist(session: Session, slug: str, name: str) -> Setlist:
@@ -173,3 +183,59 @@ def reorder_songs(session: Session, setlist: Setlist, order: Iterable[str]) -> L
         next_position += 1
     session.commit()
     return list_songs(session, setlist)
+
+
+def _shape_to_out(shape: MovableShape) -> dict:
+    return {
+        "id": shape.id,
+        "name": shape.name,
+        "root_string": shape.root_string,
+        "offsets": json.loads(shape.offsets),
+        "is_custom": shape.is_custom,
+        "created_at": shape.created_at,
+    }
+
+
+def list_movable_shapes(session: Session) -> List[dict]:
+    shapes = session.exec(select(MovableShape).order_by(MovableShape.created_at)).all()
+    return [_shape_to_out(s) for s in shapes]
+
+
+def create_movable_shape(session: Session, payload: MovableShapeCreate) -> dict:
+    shape = MovableShape(
+        name=payload.name,
+        root_string=payload.root_string,
+        offsets=json.dumps(payload.offsets),
+        is_custom=payload.is_custom,
+    )
+    session.add(shape)
+    session.commit()
+    session.refresh(shape)
+    return _shape_to_out(shape)
+
+
+def get_movable_shape(session: Session, shape_id: str) -> MovableShape | None:
+    return session.get(MovableShape, shape_id)
+
+
+def delete_movable_shape(session: Session, shape: MovableShape) -> None:
+    session.delete(shape)
+    session.commit()
+
+
+def seed_movable_shapes_if_empty(session: Session, seed_path) -> None:
+    existing = session.exec(select(MovableShape.id).limit(1)).first()
+    if existing:
+        return
+    with open(seed_path, encoding="utf-8") as f:
+        rows = json.load(f)
+    for row in rows:
+        session.add(
+            MovableShape(
+                name=row.get("name"),
+                root_string=row["rootString"],
+                offsets=json.dumps(row["offsets"]),
+                is_custom=row.get("isCustom", False),
+            )
+        )
+    session.commit()

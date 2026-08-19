@@ -96,6 +96,54 @@
         "documentation": {}
     },
     {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "APIRouter",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
         "label": "APIRouter",
         "importPath": "fastapi",
         "description": "fastapi",
@@ -377,6 +425,15 @@
         "documentation": {}
     },
     {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -462,6 +519,14 @@
         "description": "contextlib",
         "isExtraImport": true,
         "detail": "contextlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
         "documentation": {}
     },
     {
@@ -571,6 +636,42 @@
         "description": "pdfminer.pdfparser",
         "isExtraImport": true,
         "detail": "pdfminer.pdfparser",
+        "documentation": {}
+    },
+    {
+        "label": "list_movable_shapes",
+        "kind": 2,
+        "importPath": "app.api.movable_shapes",
+        "description": "app.api.movable_shapes",
+        "peekOfCode": "def list_movable_shapes(session=Depends(get_session)):\n    return crud.list_movable_shapes(session)\n@router.post(\"/\", response_model=MovableShapeOut, status_code=status.HTTP_201_CREATED)\ndef create_movable_shape(payload: MovableShapeCreate, session=Depends(get_session)):\n    return crud.create_movable_shape(session, payload)\n@router.delete(\"/{shape_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_movable_shape(shape_id: str, session=Depends(get_session)):\n    shape = crud.get_movable_shape(session, shape_id)\n    if not shape:\n        raise HTTPException(status_code=404, detail=\"Shape not found\")",
+        "detail": "app.api.movable_shapes",
+        "documentation": {}
+    },
+    {
+        "label": "create_movable_shape",
+        "kind": 2,
+        "importPath": "app.api.movable_shapes",
+        "description": "app.api.movable_shapes",
+        "peekOfCode": "def create_movable_shape(payload: MovableShapeCreate, session=Depends(get_session)):\n    return crud.create_movable_shape(session, payload)\n@router.delete(\"/{shape_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_movable_shape(shape_id: str, session=Depends(get_session)):\n    shape = crud.get_movable_shape(session, shape_id)\n    if not shape:\n        raise HTTPException(status_code=404, detail=\"Shape not found\")\n    crud.delete_movable_shape(session, shape)\n    return Response(status_code=status.HTTP_204_NO_CONTENT)",
+        "detail": "app.api.movable_shapes",
+        "documentation": {}
+    },
+    {
+        "label": "delete_movable_shape",
+        "kind": 2,
+        "importPath": "app.api.movable_shapes",
+        "description": "app.api.movable_shapes",
+        "peekOfCode": "def delete_movable_shape(shape_id: str, session=Depends(get_session)):\n    shape = crud.get_movable_shape(session, shape_id)\n    if not shape:\n        raise HTTPException(status_code=404, detail=\"Shape not found\")\n    crud.delete_movable_shape(session, shape)\n    return Response(status_code=status.HTTP_204_NO_CONTENT)",
+        "detail": "app.api.movable_shapes",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "app.api.movable_shapes",
+        "description": "app.api.movable_shapes",
+        "peekOfCode": "router = APIRouter(prefix=\"/movable-shapes\", tags=[\"movable-shapes\"])\n@router.get(\"/\", response_model=list[MovableShapeOut])\ndef list_movable_shapes(session=Depends(get_session)):\n    return crud.list_movable_shapes(session)\n@router.post(\"/\", response_model=MovableShapeOut, status_code=status.HTTP_201_CREATED)\ndef create_movable_shape(payload: MovableShapeCreate, session=Depends(get_session)):\n    return crud.create_movable_shape(session, payload)\n@router.delete(\"/{shape_id}\", status_code=status.HTTP_204_NO_CONTENT)\ndef delete_movable_shape(shape_id: str, session=Depends(get_session)):\n    shape = crud.get_movable_shape(session, shape_id)",
+        "detail": "app.api.movable_shapes",
         "documentation": {}
     },
     {
@@ -790,6 +891,51 @@
         "documentation": {}
     },
     {
+        "label": "list_movable_shapes",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def list_movable_shapes(session: Session) -> List[dict]:\n    shapes = session.exec(select(MovableShape).order_by(MovableShape.created_at)).all()\n    return [_shape_to_out(s) for s in shapes]\ndef create_movable_shape(session: Session, payload: MovableShapeCreate) -> dict:\n    shape = MovableShape(\n        name=payload.name,\n        root_string=payload.root_string,\n        offsets=json.dumps(payload.offsets),\n        is_custom=payload.is_custom,\n    )",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "create_movable_shape",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def create_movable_shape(session: Session, payload: MovableShapeCreate) -> dict:\n    shape = MovableShape(\n        name=payload.name,\n        root_string=payload.root_string,\n        offsets=json.dumps(payload.offsets),\n        is_custom=payload.is_custom,\n    )\n    session.add(shape)\n    session.commit()\n    session.refresh(shape)",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "get_movable_shape",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def get_movable_shape(session: Session, shape_id: str) -> MovableShape | None:\n    return session.get(MovableShape, shape_id)\ndef delete_movable_shape(session: Session, shape: MovableShape) -> None:\n    session.delete(shape)\n    session.commit()\ndef seed_movable_shapes_if_empty(session: Session, seed_path) -> None:\n    existing = session.exec(select(MovableShape.id).limit(1)).first()\n    if existing:\n        return\n    with open(seed_path, encoding=\"utf-8\") as f:",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "delete_movable_shape",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def delete_movable_shape(session: Session, shape: MovableShape) -> None:\n    session.delete(shape)\n    session.commit()\ndef seed_movable_shapes_if_empty(session: Session, seed_path) -> None:\n    existing = session.exec(select(MovableShape.id).limit(1)).first()\n    if existing:\n        return\n    with open(seed_path, encoding=\"utf-8\") as f:\n        rows = json.load(f)\n    for row in rows:",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
+        "label": "seed_movable_shapes_if_empty",
+        "kind": 2,
+        "importPath": "app.crud",
+        "description": "app.crud",
+        "peekOfCode": "def seed_movable_shapes_if_empty(session: Session, seed_path) -> None:\n    existing = session.exec(select(MovableShape.id).limit(1)).first()\n    if existing:\n        return\n    with open(seed_path, encoding=\"utf-8\") as f:\n        rows = json.load(f)\n    for row in rows:\n        session.add(\n            MovableShape(\n                name=row.get(\"name\"),",
+        "detail": "app.crud",
+        "documentation": {}
+    },
+    {
         "label": "init_db",
         "kind": 2,
         "importPath": "app.database",
@@ -840,6 +986,15 @@
         "importPath": "app.main",
         "description": "app.main",
         "peekOfCode": "def health() -> dict[str, str]:\n    return {\"status\": \"ok\"}\napp.include_router(api_router)",
+        "detail": "app.main",
+        "documentation": {}
+    },
+    {
+        "label": "_SEED_PATH",
+        "kind": 5,
+        "importPath": "app.main",
+        "description": "app.main",
+        "peekOfCode": "_SEED_PATH = Path(__file__).parent / \"data\" / \"movable_shapes_seed.json\"\napp = FastAPI(title=settings.app_name)\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=settings.cors_origins or [\"*\"],\n    allow_origin_regex=settings.cors_origin_regex,\n    allow_credentials=True,\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)",
         "detail": "app.main",
         "documentation": {}
     },
@@ -921,6 +1076,15 @@
         "importPath": "app.models",
         "description": "app.models",
         "peekOfCode": "class Song(SQLModel, table=True):\n    id: str = Field(default_factory=generate_public_id, primary_key=True, index=True)\n    setlist_id: int = Field(foreign_key=\"setlist.id\", index=True)\n    title: str = Field(default=\"Новая песня\")\n    key: str = Field(default=\"C\")\n    original_key: str | None = None\n    bpm: int | None = None\n    time_signature: str | None = Field(default=\"4/4\")\n    markdown_body: str\n    position: int = Field(default=0, index=True)",
+        "detail": "app.models",
+        "documentation": {}
+    },
+    {
+        "label": "MovableShape",
+        "kind": 6,
+        "importPath": "app.models",
+        "description": "app.models",
+        "peekOfCode": "class MovableShape(SQLModel, table=True):\n    \"\"\"A movable fretting pattern (e.g. \"E-form barre minor\") — the library's\n    unit of storage. `root_string` (0=low E .. 5=high e) is whichever string\n    carries the root note; `offsets` is a JSON-encoded array of 6 entries\n    (int fret offset from the barre fret, or null for a muted string). The\n    same shape is reused for every root by sliding the barre fret; which\n    notes/quality it actually produces is derived, never stored.\n    \"\"\"\n    id: str = Field(default_factory=generate_public_id, primary_key=True, index=True)\n    name: str | None = None",
         "detail": "app.models",
         "documentation": {}
     },
@@ -1217,7 +1381,7 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class SongUpdate(SongCreate):\n    pass\nclass ReorderPayload(APIModel):\n    order: List[str]\nclass SetlistBase(APIModel):\n    slug: str\n    name: str\n    description: Optional[str] = None\nclass SetlistUpdate(APIModel):\n    name: Optional[str] = None",
+        "peekOfCode": "class SongUpdate(SongCreate):\n    pass\nclass ReorderPayload(APIModel):\n    order: List[str]\nclass MovableShapeBase(APIModel):\n    name: Optional[str] = None\n    root_string: int\n    offsets: List[Optional[int]]\n    is_custom: bool = False\nclass MovableShapeCreate(MovableShapeBase):",
         "detail": "app.schemas",
         "documentation": {}
     },
@@ -1226,7 +1390,34 @@
         "kind": 6,
         "importPath": "app.schemas",
         "description": "app.schemas",
-        "peekOfCode": "class ReorderPayload(APIModel):\n    order: List[str]\nclass SetlistBase(APIModel):\n    slug: str\n    name: str\n    description: Optional[str] = None\nclass SetlistUpdate(APIModel):\n    name: Optional[str] = None\n    description: Optional[str] = None",
+        "peekOfCode": "class ReorderPayload(APIModel):\n    order: List[str]\nclass MovableShapeBase(APIModel):\n    name: Optional[str] = None\n    root_string: int\n    offsets: List[Optional[int]]\n    is_custom: bool = False\nclass MovableShapeCreate(MovableShapeBase):\n    pass\nclass MovableShapeOut(MovableShapeBase):",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MovableShapeBase",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class MovableShapeBase(APIModel):\n    name: Optional[str] = None\n    root_string: int\n    offsets: List[Optional[int]]\n    is_custom: bool = False\nclass MovableShapeCreate(MovableShapeBase):\n    pass\nclass MovableShapeOut(MovableShapeBase):\n    id: str\n    created_at: datetime",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MovableShapeCreate",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class MovableShapeCreate(MovableShapeBase):\n    pass\nclass MovableShapeOut(MovableShapeBase):\n    id: str\n    created_at: datetime\nclass SetlistBase(APIModel):\n    slug: str\n    name: str\n    description: Optional[str] = None\nclass SetlistUpdate(APIModel):",
+        "detail": "app.schemas",
+        "documentation": {}
+    },
+    {
+        "label": "MovableShapeOut",
+        "kind": 6,
+        "importPath": "app.schemas",
+        "description": "app.schemas",
+        "peekOfCode": "class MovableShapeOut(MovableShapeBase):\n    id: str\n    created_at: datetime\nclass SetlistBase(APIModel):\n    slug: str\n    name: str\n    description: Optional[str] = None\nclass SetlistUpdate(APIModel):\n    name: Optional[str] = None\n    description: Optional[str] = None",
         "detail": "app.schemas",
         "documentation": {}
     },
