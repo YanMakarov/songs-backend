@@ -11,6 +11,33 @@ dependencies = [
   "pdfminer.six>=20231228",
   # Three-way merge of song bodies (roadmap phase 4). Pure Python, no deps.
   "merge3>=0.0.15",
+  # Password hashing. Argon2id is the current recommendation, and
+  # argon2-cffi is maintained — unlike passlib, which has been dormant
+  # for years and would only add a wrapper layer over the same binding.
+  "argon2-cffi>=23.1",
+]
+
+[project.optional-dependencies]
+# Not installed on the server: the deploy workflow runs `pip install -e .`
+# without extras, so the test-only dependencies stay off production.
+dev = [
+  "pytest>=8",
+  # TestClient's transport. Already present as a FastAPI extra, pinned here
+  # so a bare `pip install -e .[dev]` is enough to run the suite.
+  "httpx>=0.27",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# `app` is imported from the backend directory, which is also where the
+# default DATABASE_URL resolves from.
+pythonpath = ["."]
+filterwarnings = [
+  # SQLModel's own default factories call it, so this fires from library code
+  # on every model instantiation and would bury real warnings.
+  "ignore:datetime.datetime.utcnow\\(\\) is deprecated.*:DeprecationWarning",
+  # FastAPI 0.111 still uses on_event internally for the app's own startup.
+  "ignore:(?s).*on_event is deprecated.*:DeprecationWarning",
 ]
 
 [build-system]
