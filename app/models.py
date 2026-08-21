@@ -22,6 +22,16 @@ class Setlist(SQLModel, table=True):
     description: str | None = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+    # Monotonic counter shared by every song in the setlist. Each write takes
+    # the next value and stores it on the song, so one number serves as the
+    # song's version (for If-Match), as the cache key, and as a position in
+    # the setlist-wide change feed.
+    rev_counter: int = Field(default=0)
+    # Highest rev whose row has been physically purged from the trash. A client
+    # asking for changes since an earlier rev cannot be answered accurately and
+    # is told to re-sync from scratch.
+    purged_rev: int = Field(default=0)
+
 
 class Song(SQLModel, table=True):
     id: str = Field(default_factory=generate_public_id, primary_key=True, index=True)
@@ -35,6 +45,17 @@ class Song(SQLModel, table=True):
     position: int = Field(default=0, index=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+    # See Setlist.rev_counter. Bumped on every write, including deletion and
+    # restore, so the change feed never misses a transition.
+    rev: int = Field(default=0, index=True)
+    # Display name of whoever last wrote, taken from the X-Client-Name header.
+    # Attribution for the UI, not an authorisation check — the header is
+    # trivially forgeable until real sign-in exists.
+    updated_by: str | None = None
+    # Soft deletion: the row stays until it is purged, so an accidental delete
+    # can be undone long after the toast is gone.
+    deleted_at: datetime | None = Field(default=None, index=True)
 
 
 class MovableShape(SQLModel, table=True):

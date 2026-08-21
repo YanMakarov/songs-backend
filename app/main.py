@@ -14,6 +14,9 @@ from .database import init_db, session_scope
 
 _SEED_PATH = Path(__file__).parent / "data" / "movable_shapes_seed.json"
 
+#: How long a soft-deleted song stays restorable.
+TRASH_RETENTION_DAYS = 30
+
 
 app = FastAPI(title=settings.app_name)
 
@@ -24,6 +27,9 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    # Response headers are hidden from cross-origin JS unless listed here, and
+    # the frontend needs the version to send it back as If-Match.
+    expose_headers=["ETag", "X-Deleted"],
 )
 
 
@@ -31,8 +37,9 @@ app.add_middleware(
 def _on_startup() -> None:
     init_db()
     with session_scope() as session:
-        crud.ensure_setlist(session, slug="setlist1", name="Setlist 1")
+        setlist = crud.ensure_setlist(session, slug="setlist1", name="Setlist 1")
         crud.seed_movable_shapes_if_empty(session, _SEED_PATH)
+        crud.purge_deleted(session, setlist, older_than_days=TRASH_RETENTION_DAYS)
 
 
 @app.get("/health")

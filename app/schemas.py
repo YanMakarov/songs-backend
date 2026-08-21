@@ -53,6 +53,11 @@ class SongBase(APIModel):
     position: int = 0
     created_at: datetime
     updated_at: datetime
+    # Monotonic per-setlist version. Send it back as `If-Match` when writing.
+    rev: int = 0
+    updated_by: Optional[str] = None
+    # Set only for songs in the trash (`GET /songs/?deleted=1`).
+    deleted_at: Optional[datetime] = None
 
 
 class SongSummary(SongBase):
@@ -78,6 +83,50 @@ class SongUpdate(SongCreate):
 
 class ReorderPayload(APIModel):
     order: List[str]
+
+
+class SongChange(APIModel):
+    """One entry of the setlist change feed.
+
+    `song` is omitted for deletions so a client can drop the row without
+    fetching anything; for live songs the summary is included, which is enough
+    to refresh a list without a second round trip.
+    """
+
+    id: str
+    rev: int
+    deleted: bool = False
+    updated_at: datetime
+    updated_by: Optional[str] = None
+    song: Optional[SongSummary] = None
+
+
+class SetlistChanges(APIModel):
+    #: The setlist's current rev — use it as `since` on the next poll.
+    rev: int
+    changes: List[SongChange] = Field(default_factory=list)
+    #: The cursor reaches further back than retained history; re-sync via /state.
+    too_old: bool = False
+
+
+class SongState(APIModel):
+    id: str
+    rev: int
+
+
+class SetlistState(APIModel):
+    """Full {id, rev} listing for cold reconciliation after a lost cursor."""
+
+    rev: int
+    songs: List[SongState] = Field(default_factory=list)
+
+
+class ConflictDetail(APIModel):
+    """Body of a 412 — carries the server's current state so the client does
+    not need a second request to recover."""
+
+    message: str
+    current: SongDetail
 
 
 class MovableShapeBase(APIModel):
