@@ -121,6 +121,17 @@ class SetlistState(APIModel):
     songs: List[SongState] = Field(default_factory=list)
 
 
+class SongRevisionOut(APIModel):
+    """One entry of a song's edit history."""
+
+    rev: int
+    title: str
+    key: str
+    bpm: Optional[int] = None
+    updated_by: Optional[str] = None
+    created_at: datetime
+
+
 class ConflictDetail(APIModel):
     """Body of a 412 — carries the server's current state so the client does
     not need a second request to recover."""

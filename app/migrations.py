@@ -84,8 +84,56 @@ def _migration_001_rev_and_soft_delete(conn: Connection) -> None:
         )
 
 
+def _migration_002_song_revisions(conn: Connection) -> None:
+    """Snapshots per rev, so a stale write can be merged instead of rejected
+    (roadmap phase 4.1). Also the song's edit history."""
+
+    conn.execute(
+        text(
+            "CREATE TABLE IF NOT EXISTS songrevision ("
+            " id INTEGER PRIMARY KEY,"
+            " song_id VARCHAR NOT NULL,"
+            " rev INTEGER NOT NULL,"
+            " markdown_body TEXT NOT NULL,"
+            " title VARCHAR NOT NULL,"
+            " key VARCHAR NOT NULL,"
+            " original_key VARCHAR,"
+            " bpm INTEGER,"
+            " time_signature VARCHAR,"
+            " updated_by VARCHAR,"
+            " created_at DATETIME NOT NULL)"
+        )
+    )
+    conn.execute(text("CREATE INDEX IF NOT EXISTS ix_songrevision_song_id ON songrevision (song_id)"))
+    conn.execute(text("CREATE INDEX IF NOT EXISTS ix_songrevision_rev ON songrevision (rev)"))
+    conn.execute(
+        text(
+            "CREATE UNIQUE INDEX IF NOT EXISTS ix_songrevision_song_rev"
+            " ON songrevision (song_id, rev)"
+        )
+    )
+
+    if not _table_exists(conn, "song"):
+        return
+
+    # Seed one snapshot per existing song at its current rev. Without it, the
+    # very next edit from a client holding that rev would have no ancestor to
+    # merge against and would be rejected for no good reason.
+    conn.execute(
+        text(
+            "INSERT OR IGNORE INTO songrevision"
+            " (song_id, rev, markdown_body, title, key, original_key, bpm,"
+            "  time_signature, updated_by, created_at)"
+            " SELECT id, rev, markdown_body, title, key, original_key, bpm,"
+            "        time_signature, updated_by, updated_at"
+            " FROM song"
+        )
+    )
+
+
 MIGRATIONS: List[Tuple[int, str, Callable[[Connection], None]]] = [
     (1, "rev_and_soft_delete", _migration_001_rev_and_soft_delete),
+    (2, "song_revisions", _migration_002_song_revisions),
 ]
 
 

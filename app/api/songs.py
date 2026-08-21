@@ -8,7 +8,14 @@ from .. import crud
 from ..database import get_session
 from ..deps import get_author
 from ..http_versioning import etag_for, matches, parse_entity_tag, require_match
-from ..schemas import ReorderPayload, SongCreate, SongDetail, SongSummary, SongUpdate
+from ..schemas import (
+    ReorderPayload,
+    SongCreate,
+    SongDetail,
+    SongRevisionOut,
+    SongSummary,
+    SongUpdate,
+)
 
 
 router = APIRouter(prefix="/setlists/{setlist_slug}/songs", tags=["songs"])
@@ -98,13 +105,53 @@ def update_song(
     song = crud.get_song(session, setlist, song_id)
     if not song:
         raise HTTPException(status_code=404, detail="Song not found")
-    require_match(
-        parse_entity_tag(if_match),
-        song_id,
-        song.rev,
-        crud.to_detail(song, setlist),
-    )
+
+    tag = parse_entity_tag(if_match)
+    base_rev = tag[1] if tag else None
+
+    if base_rev is not None and base_rev != song.rev:
+        # Someone wrote in between. Before refusing, try to combine the two:
+        # edits to different parts of a song are the ordinary case and should
+        # not surface to anyone.
+        outcome = crud.update_song_with_merge(
+            session, setlist, song, payload, base_rev, author=author
+        )
+        if outcome.conflict:
+            raise HTTPException(
+                status_code=status.HTTP_412_PRECONDITION_FAILED,
+                detail={
+                    "message": (
+                        "Те же строки правил кто-то ещё"
+                        if outcome.conflict == "lines"
+                        else "Песня изменилась слишком давно, нужно обновить"
+                    ),
+                    "reason": outcome.conflict,
+                    "songId": song_id,
+                    "expectedRev": base_rev,
+                    "currentRev": song.rev,
+                    "current": crud.to_detail(song, setlist).model_dump(
+                        by_alias=True, mode="json"
+                    ),
+                },
+            )
+        response.headers["X-Merged"] = "true"
+        if outcome.overwritten:
+            response.headers["X-Overwritten-Fields"] = ",".join(outcome.overwritten)
+        return _tag(response, outcome.detail)
+
     return _tag(response, crud.update_song(session, setlist, song, payload, author=author))
+
+
+@router.get("/{song_id}/revisions", response_model=list[SongRevisionOut])
+def list_revisions(setlist_slug: str, song_id: str, session=Depends(get_session)):
+    """Edit history — who changed the song and when. Falls out of the
+    snapshots the merge already needs."""
+
+    setlist = _require_setlist(session, setlist_slug)
+    song = crud.get_song(session, setlist, song_id, include_deleted=True)
+    if not song:
+        raise HTTPException(status_code=404, detail="Song not found")
+    return crud.list_revisions(session, song_id)
 
 
 @router.delete("/{song_id}", response_model=SongDetail)

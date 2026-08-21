@@ -8,8 +8,8 @@ from typing import Iterable, List
 
 from sqlmodel import Session, select
 
-from . import markdown_utils
-from .models import MovableShape, Setlist, Song
+from . import markdown_utils, merge as merge_utils
+from .models import MovableShape, Setlist, Song, SongRevision
 from .schemas import (
     MovableShapeCreate,
     ReorderPayload,
@@ -58,6 +58,61 @@ def update_setlist(session: Session, setlist: Setlist, name: str | None, descrip
     session.commit()
     session.refresh(setlist)
     return setlist
+
+
+#: How many snapshots to keep per song. Enough to merge against anything a
+#: client could plausibly still be holding, small enough to ignore.
+REVISION_RETENTION = 50
+
+
+def _record_revision(session: Session, song: Song) -> None:
+    """Snapshot the song at its current rev.
+
+    Called on every rev bump so the invariant "every rev has a snapshot" holds
+    — that is what lets a merge always find its ancestor.
+    """
+
+    session.add(
+        SongRevision(
+            song_id=song.id,
+            rev=song.rev,
+            markdown_body=song.markdown_body,
+            title=song.title,
+            key=song.key,
+            original_key=song.original_key,
+            bpm=song.bpm,
+            time_signature=song.time_signature,
+            updated_by=song.updated_by,
+        )
+    )
+    _prune_revisions(session, song.id)
+
+
+def _prune_revisions(session: Session, song_id: str) -> None:
+    stale = session.exec(
+        select(SongRevision)
+        .where(SongRevision.song_id == song_id)
+        .order_by(SongRevision.rev.desc())
+        .offset(REVISION_RETENTION)
+    ).all()
+    for revision in stale:
+        session.delete(revision)
+
+
+def get_revision(session: Session, song_id: str, rev: int) -> SongRevision | None:
+    """The snapshot a client's `If-Match` refers to, if we still have it."""
+
+    return session.exec(
+        select(SongRevision).where(SongRevision.song_id == song_id, SongRevision.rev == rev)
+    ).first()
+
+
+def list_revisions(session: Session, song_id: str) -> List[SongRevision]:
+    return session.exec(
+        select(SongRevision)
+        .where(SongRevision.song_id == song_id)
+        .order_by(SongRevision.rev.desc())
+    ).all()
 
 
 def _next_rev(session: Session, setlist: Setlist) -> int:
@@ -179,6 +234,8 @@ def create_song(
         updated_by=author,
     )
     session.add(song)
+    session.flush()
+    _record_revision(session, song)
     session.commit()
     session.refresh(song)
     return _to_detail(song, setlist)
@@ -209,9 +266,80 @@ def update_song(
     song.updated_by = author
     song.rev = _next_rev(session, setlist)
     session.add(song)
+    _record_revision(session, song)
     session.commit()
     session.refresh(song)
     return _to_detail(song, setlist)
+
+
+class MergeOutcome:
+    """What happened to a write that arrived against an older version."""
+
+    def __init__(self, detail=None, merged=False, overwritten=None, conflict=None):
+        self.detail = detail
+        #: True when the two sides were combined without asking the user.
+        self.merged = merged
+        #: Metadata fields this write took away from someone else's value.
+        self.overwritten = overwritten or []
+        #: Set when the same lines were touched from both sides.
+        self.conflict = conflict
+
+
+def update_song_with_merge(
+    session: Session,
+    setlist: Setlist,
+    song: Song,
+    payload: SongUpdate,
+    base_rev: int,
+    *,
+    author: str | None = None,
+) -> MergeOutcome:
+    """Apply a write that was based on `base_rev` while the song has moved on.
+
+    Two people editing different verses is the common case and must not
+    surface as a conflict; only genuinely overlapping lines do.
+    """
+
+    base = get_revision(session, song.id, base_rev)
+    if base is None:
+        # History does not reach that far back — nothing to merge against, so
+        # the honest answer is "reload".
+        return MergeOutcome(conflict="no_base")
+
+    sent = payload.model_dump(exclude_unset=True, by_alias=False)
+
+    if "lines" in sent and payload.lines is not None:
+        validated = [SongLine.model_validate(line) for line in payload.lines]
+        incoming_body = markdown_utils.lines_to_markdown(validated)
+        result = merge_utils.merge_bodies(base.markdown_body, song.markdown_body, incoming_body)
+        if result.conflicted:
+            return MergeOutcome(conflict="lines")
+        song.markdown_body = result.text
+
+    overwritten = merge_utils.overwritten_metadata(base, song, sent)
+    _apply_metadata(song, payload)
+
+    song.updated_at = datetime.utcnow()
+    song.updated_by = author
+    song.rev = _next_rev(session, setlist)
+    session.add(song)
+    _record_revision(session, song)
+    session.commit()
+    session.refresh(song)
+    return MergeOutcome(detail=_to_detail(song, setlist), merged=True, overwritten=overwritten)
+
+
+def _apply_metadata(song: Song, payload: SongUpdate) -> None:
+    if "title" in payload.model_fields_set:
+        song.title = payload.title or ""
+    if "key" in payload.model_fields_set and payload.key:
+        song.key = payload.key
+    if "original_key" in payload.model_fields_set:
+        song.original_key = payload.original_key
+    if "bpm" in payload.model_fields_set:
+        song.bpm = payload.bpm
+    if "time_signature" in payload.model_fields_set and payload.time_signature:
+        song.time_signature = payload.time_signature
 
 
 def delete_song(
@@ -229,6 +357,7 @@ def delete_song(
     song.updated_by = author
     song.rev = _next_rev(session, setlist)
     session.add(song)
+    _record_revision(session, song)
     session.commit()
     session.refresh(song)
     return _to_detail(song, setlist)
@@ -243,6 +372,7 @@ def restore_song(
     song.updated_by = author
     song.rev = _next_rev(session, setlist)
     session.add(song)
+    _record_revision(session, song)
     session.commit()
     session.refresh(song)
     return _to_detail(song, setlist)
@@ -268,6 +398,10 @@ def purge_deleted(session: Session, setlist: Setlist, *, older_than_days: int = 
         return 0
     highest = max(song.rev for song in songs)
     for song in songs:
+        for revision in session.exec(
+            select(SongRevision).where(SongRevision.song_id == song.id)
+        ).all():
+            session.delete(revision)
         session.delete(song)
     if highest > (setlist.purged_rev or 0):
         setlist.purged_rev = highest
@@ -349,6 +483,7 @@ def reorder_songs(
         song.updated_by = author
         song.rev = _next_rev(session, setlist)
         session.add(song)
+        _record_revision(session, song)
     session.commit()
     return list_songs(session, setlist)
 

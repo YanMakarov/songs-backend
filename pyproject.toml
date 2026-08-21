@@ -9,6 +9,8 @@ dependencies = [
   "uvicorn[standard]>=0.29,<0.30",
   "sqlmodel>=0.0.16,<0.0.17",
   "pdfminer.six>=20231228",
+  # Three-way merge of song bodies (roadmap phase 4). Pure Python, no deps.
+  "merge3>=0.0.15",
 ]
 
 [build-system]

@@ -58,6 +58,31 @@ class Song(SQLModel, table=True):
     deleted_at: datetime | None = Field(default=None, index=True)
 
 
+class SongRevision(SQLModel, table=True):
+    """A snapshot of a song at one rev.
+
+    Exists so a write based on an older version can still be merged: a
+    three-way merge needs the common ancestor, and without history the server
+    can only say "your version is stale, reload". Pruned to the last
+    `REVISION_RETENTION` per song.
+
+    The same table doubles as the song's edit history — who changed what and
+    when — which is worth having on its own.
+    """
+
+    id: int | None = Field(default=None, primary_key=True)
+    song_id: str = Field(foreign_key="song.id", index=True)
+    rev: int = Field(index=True)
+    markdown_body: str
+    title: str
+    key: str
+    original_key: str | None = None
+    bpm: int | None = None
+    time_signature: str | None = None
+    updated_by: str | None = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
 class MovableShape(SQLModel, table=True):
     """A movable fretting pattern (e.g. "E-form barre minor") — the library's
     unit of storage. `root_string` (0=low E .. 5=high e) is whichever string

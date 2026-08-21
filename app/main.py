@@ -29,7 +29,7 @@ app.add_middleware(
     allow_headers=["*"],
     # Response headers are hidden from cross-origin JS unless listed here, and
     # the frontend needs the version to send it back as If-Match.
-    expose_headers=["ETag", "X-Deleted"],
+    expose_headers=["ETag", "X-Deleted", "X-Merged", "X-Overwritten-Fields"],
 )
 
 
