@@ -10,6 +10,9 @@ from .schemas import SongChord, SongLine
 
 _REPEAT_RE = re.compile(r"^[xх](\d{1,3})$", re.IGNORECASE)
 _VOICING_RE = re.compile(r"^[0-9a-f]{6}$")
+#: Explicit column for a chord that sits past the end of its lyrics.
+#: Chord symbols never contain "@", so this cannot collide with one.
+_COLUMN_RE = re.compile(r"^(.*)@(\d{1,4})$")
 
 
 def _format_chord_token(chord: SongChord) -> str:
@@ -25,6 +28,23 @@ def _split_chord_token(token: str) -> tuple[str, str | None]:
         if symbol and _VOICING_RE.match(code):
             return symbol, code
     return token, None
+
+
+def _split_column(token: str) -> tuple[str, int | None]:
+    """Peel an explicit "@column" suffix off a chord token.
+
+    Written by `_render_lyric_line` only for chords that sit past the end of
+    the lyrics, so a token without it keeps meaning exactly what it did
+    before and old songs parse unchanged.
+    """
+
+    match = _COLUMN_RE.match(token)
+    if not match:
+        return token, None
+    symbol = match.group(1).strip()
+    if not symbol:
+        return token, None
+    return symbol, int(match.group(2))
 
 
 def _ensure_line(line: SongLine | dict) -> SongLine:
@@ -60,19 +80,39 @@ def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:
 
 
 def _render_lyric_line(line: SongLine) -> str:
+    """Write a lyrics line with its chords.
+
+    Chords live inside the text — `[Am7]слово` — so a chord's column is just
+    an index into it. That leaves nowhere to put a chord placed past the end
+    of the line, which happens whenever one syllable is held under a run of
+    changes: "А" with three chords over it. Clamping such a chord to
+    `len(text)` was silently piling them onto the same column.
+
+    Those chords are written after the text with an explicit column instead:
+    `А[Dmaj7@4]`. Chords that do fit are untouched, so an existing song
+    re-renders byte for byte as before.
+    """
+
     text = line.lyrics or ""
     if not line.chords:
         return text
     sorted_chords = sorted(line.chords, key=lambda c: c.position)
     acc: List[str] = []
     cursor = 0
+    trailing: List[SongChord] = []
     for chord in sorted_chords:
-        pos = max(0, min(len(text), chord.position))
+        if not chord.chord.strip():
+            continue
+        if chord.position > len(text):
+            trailing.append(chord)
+            continue
+        pos = max(0, chord.position)
         acc.append(text[cursor:pos])
-        if chord.chord.strip():
-            acc.append(f"[{_format_chord_token(chord)}]")
+        acc.append(f"[{_format_chord_token(chord)}]")
         cursor = pos
     acc.append(text[cursor:])
+    for chord in trailing:
+        acc.append(f"[{_format_chord_token(chord)}@{chord.position}]")
     return "".join(acc)
 
 
@@ -138,7 +178,10 @@ def _parse_lyric_line(raw: str) -> SongLine:
                 continue
             chord_text = raw[idx + 1 : closing].strip()
             if chord_text:
-                position = len("".join(text_parts))
+                chord_text, explicit_column = _split_column(chord_text)
+                # An explicit column wins: it is there precisely because the
+                # chord sits where the running text offset cannot express it.
+                position = explicit_column if explicit_column is not None else len("".join(text_parts))
                 symbol, voicing = _split_chord_token(chord_text)
                 chords.append(SongChord(id=generate_public_id(), position=position, chord=symbol, voicing=voicing))
             idx = closing + 1

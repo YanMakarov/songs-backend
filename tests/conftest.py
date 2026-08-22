@@ -32,11 +32,16 @@ from app.auth.passwords import hash_password  # noqa: E402
 from app.config import AuthMode, settings  # noqa: E402
 from sqlmodel import select  # noqa: E402
 
-from app.database import session_scope  # noqa: E402
+from app.database import init_db, session_scope  # noqa: E402
 from app.main import app  # noqa: E402
 from app.models import AuthSession, Song, SongRevision, User  # noqa: E402
 
 PASSWORD = "correct-horse-battery"
+
+# Created once, here, rather than as a side effect of the `client` fixture
+# starting the app: a module that only tests pure functions still gets the
+# autouse cleanup below, and that cleanup queries these tables.
+init_db()
 
 
 @pytest.fixture(autouse=True)
