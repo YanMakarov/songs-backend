@@ -151,6 +151,14 @@ class MovableShapeCreate(MovableShapeBase):
     pass
 
 
+class MovableShapeUpdate(APIModel):
+    """Renaming a saved shape. Only the name is editable — the fretting
+    pattern is the shape's identity, so a different pattern is a different
+    shape, added and (if it was a mistake) deleted."""
+
+    name: Optional[str] = None
+
+
 class MovableShapeOut(MovableShapeBase):
     id: str
     created_at: datetime

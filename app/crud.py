@@ -12,6 +12,7 @@ from . import markdown_utils, merge as merge_utils
 from .models import MovableShape, Setlist, Song, SongRevision
 from .schemas import (
     MovableShapeCreate,
+    MovableShapeUpdate,
     ReorderPayload,
     SetlistChanges,
     SetlistState,
@@ -519,6 +520,19 @@ def create_movable_shape(session: Session, payload: MovableShapeCreate) -> dict:
 
 def get_movable_shape(session: Session, shape_id: str) -> MovableShape | None:
     return session.get(MovableShape, shape_id)
+
+
+def update_movable_shape(
+    session: Session, shape: MovableShape, payload: MovableShapeUpdate
+) -> dict:
+    name = (payload.name or "").strip()
+    # An emptied field means "no name of my own" — the card falls back to
+    # naming the shape by its root string, same as one saved without a name.
+    shape.name = name or None
+    session.add(shape)
+    session.commit()
+    session.refresh(shape)
+    return _shape_to_out(shape)
 
 
 def delete_movable_shape(session: Session, shape: MovableShape) -> None:
