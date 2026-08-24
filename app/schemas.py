@@ -26,7 +26,11 @@ class SongChord(APIModel):
 
 class SongLine(APIModel):
     id: str
-    type: Literal["line", "section", "chords", "pagebreak"] = "line"
+    # "comment" is a free-form note the performer leaves for themselves
+    # ("попробовать другой аккорд здесь"); its text lives in `lyrics` like
+    # any other textual line, so every consumer that falls back to `lyrics`
+    # keeps showing something readable instead of an empty row.
+    type: Literal["line", "section", "chords", "pagebreak", "comment"] = "line"
     lyrics: str = ""
     label: Optional[str] = None
     key: Optional[str] = None

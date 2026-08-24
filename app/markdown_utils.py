@@ -15,6 +15,44 @@ _VOICING_RE = re.compile(r"^[0-9a-f]{6}$")
 _COLUMN_RE = re.compile(r"^(.*)@(\d{1,4})$")
 
 
+def _escape_comment(text: str) -> str:
+    """Fold a multi-line comment into one Markdown line.
+
+    The body is line-based — `markdown_to_lines` splits on "\n" and hands each
+    piece to one `SongLine` — so a comment's own newlines cannot be written
+    literally. Escaping them keeps one comment equal to one line, which is
+    what makes two comments written one after another stay two comments
+    instead of merging into a single block on the next read.
+
+    The price is merge granularity: an edit anywhere inside a comment touches
+    the whole line, so two people editing the same comment conflict. Comments
+    are short private notes, edited by one person at a time, so that trade
+    goes the right way here.
+    """
+
+    return text.replace("\\", "\\\\").replace("\r\n", "\n").replace("\r", "\n").replace("\n", "\\n")
+
+
+def _unescape_comment(text: str) -> str:
+    out: List[str] = []
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if char == "\\" and index + 1 < len(text):
+            following = text[index + 1]
+            if following == "n":
+                out.append("\n")
+                index += 2
+                continue
+            if following == "\\":
+                out.append("\\")
+                index += 2
+                continue
+        out.append(char)
+        index += 1
+    return "".join(out)
+
+
 def _format_chord_token(chord: SongChord) -> str:
     symbol = chord.chord.strip()
     if chord.voicing and _VOICING_RE.match(chord.voicing):
@@ -75,6 +113,10 @@ def lines_to_markdown(lines: Iterable[SongLine | dict]) -> str:
             body = " ".join(parts)
             rendered.append(f":: {body}".rstrip() if body else "::")
             continue
+        if line.type == "comment":
+            body = _escape_comment(line.lyrics or "")
+            rendered.append(f"> {body}".rstrip())
+            continue
         rendered.append(_render_lyric_line(line))
     return "\n".join(rendered).strip() or ""
 
@@ -127,6 +169,8 @@ def markdown_to_lines(markdown: str) -> List[SongLine]:
             lines.append(_parse_section_line(stripped))
         elif stripped.startswith("::"):
             lines.append(_parse_chords_line(stripped))
+        elif stripped.startswith(">"):
+            lines.append(_parse_comment_line(stripped))
         else:
             lines.append(_parse_lyric_line(stripped))
     if not lines:
@@ -163,6 +207,21 @@ def _parse_chords_line(raw: str) -> SongLine:
         chords=chords,
         repeat_count=repeat_count,
     )
+
+
+def _parse_comment_line(raw: str) -> SongLine:
+    """Read back a "> …" line.
+
+    Deliberately never goes through `_parse_lyric_line`: a comment is prose,
+    and prose contains brackets. "[тут может быть что-то другое]" must stay
+    text rather than becoming a chord.
+    """
+
+    body = raw[1:]
+    # One separating space is formatting, anything beyond it the author typed.
+    if body.startswith(" "):
+        body = body[1:]
+    return SongLine(id=generate_public_id(), type="comment", lyrics=_unescape_comment(body), chords=[])
 
 
 def _parse_lyric_line(raw: str) -> SongLine:

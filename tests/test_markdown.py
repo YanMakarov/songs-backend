@@ -107,3 +107,56 @@ def test_an_at_sign_without_digits_is_not_a_column():
 
     assert parsed.chords[0].chord == "C@"
     assert parsed.chords[0].position == 0
+
+
+def comment(text: str) -> SongLine:
+    return SongLine(id="line", type="comment", lyrics=text, chords=[])
+
+
+def test_a_comment_is_written_as_a_quote_line():
+    assert lines_to_markdown([comment("попробовать другой аккорд")]) == "> попробовать другой аккорд"
+
+
+def test_a_multiline_comment_stays_one_markdown_line():
+    """One comment must equal one line.
+
+    The body is split on newlines when it is read back, so a comment with
+    literal newlines would come back as several lines — and two comments
+    written one after another would be indistinguishable from one.
+    """
+
+    source = comment("первая\nвторая")
+
+    assert lines_to_markdown([source]) == "> первая\\nвторая"
+    assert roundtrip(source).lyrics == "первая\nвторая"
+
+
+def test_two_comments_in_a_row_stay_two():
+    parsed = markdown_to_lines(lines_to_markdown([comment("раз"), comment("два")]))
+
+    assert [(l.type, l.lyrics) for l in parsed] == [("comment", "раз"), ("comment", "два")]
+
+
+def test_brackets_in_a_comment_are_not_chords():
+    """Prose contains brackets; a comment must never be parsed as lyrics."""
+
+    parsed = roundtrip(comment("[тут] что-то другое"))
+
+    assert parsed.type == "comment"
+    assert parsed.lyrics == "[тут] что-то другое"
+    assert parsed.chords == []
+
+
+def test_backslashes_in_a_comment_survive():
+    source = comment("путь C:\\nota и перенос\nдальше")
+
+    assert roundtrip(source).lyrics == source.lyrics
+
+
+def test_an_empty_comment_round_trips():
+    assert lines_to_markdown([comment("")]) == ">"
+    assert roundtrip(comment("")).type == "comment"
+
+
+def test_leading_spaces_in_a_comment_are_kept():
+    assert roundtrip(comment("   отступ")).lyrics == "   отступ"
