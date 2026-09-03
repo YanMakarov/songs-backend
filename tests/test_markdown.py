@@ -10,8 +10,8 @@ from __future__ import annotations
 
 import pytest
 
-from app.markdown_utils import lines_to_markdown, markdown_to_lines
-from app.schemas import SongChord, SongLine
+from app.modules.songs.markdown import lines_to_markdown, markdown_to_lines
+from app.modules.songs.schemas import SongChord, SongLine
 
 
 def line(lyrics: str, *chords: tuple[int, str], voicings: dict[str, str] | None = None) -> SongLine:

@@ -1,24 +1,20 @@
-"""FastAPI application entrypoint."""
+"""FastAPI application entrypoint.
+
+The app layer, and the only place that knows the full list of modules: it
+mounts their routers and runs their startup hooks. Nothing here reaches into a
+module past its front door, which is why this file says nothing about setlists,
+seed files or session tables.
+"""
 
 from __future__ import annotations
-
-from pathlib import Path
 
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import crud
-from .api import router as api_router
-from .auth import sessions as auth_sessions
-from .auth.policy import enforce_auth, log_startup_banner
-from .config import AuthMode, settings
-from .database import init_db, session_scope
-
-_SEED_PATH = Path(__file__).parent / "data" / "movable_shapes_seed.json"
-
-#: How long a soft-deleted song stays restorable.
-TRASH_RETENTION_DAYS = 30
-
+from .core.config import AuthMode, settings
+from .core.database import session_scope
+from .modules import auth, pdf, shapes, songs
+from .tables import init_database
 
 #: FastAPI serves the schema and Swagger UI as plain Starlette routes, which
 #: application-wide dependencies do not cover — they would stay reachable with
@@ -32,8 +28,8 @@ app = FastAPI(
     redoc_url="/redoc" if _docs_open else None,
     openapi_url="/openapi.json" if _docs_open else None,
     # Applied to every route on the app, including any router added later:
-    # a new endpoint is closed until app/auth/policy.py says otherwise.
-    dependencies=[Depends(enforce_auth)],
+    # a new endpoint is closed until auth's policy says otherwise.
+    dependencies=[Depends(auth.enforce_auth)],
 )
 
 app.add_middleware(
@@ -51,13 +47,12 @@ app.add_middleware(
 
 @app.on_event("startup")
 def _on_startup() -> None:
-    init_db()
-    log_startup_banner()
+    init_database()
+    auth.log_startup_banner()
     with session_scope() as session:
-        setlist = crud.ensure_setlist(session, slug="setlist1", name="Setlist 1")
-        crud.seed_movable_shapes_if_empty(session, _SEED_PATH)
-        crud.purge_deleted(session, setlist, older_than_days=TRASH_RETENTION_DAYS)
-        auth_sessions.purge_expired(session)
+        songs.on_startup(session)
+        shapes.seed_if_empty(session)
+        auth.purge_expired(session)
 
 
 @app.get("/health")
@@ -72,4 +67,9 @@ def health() -> dict[str, str]:
     return {"status": "ok", "auth": settings.auth_mode.value}
 
 
-app.include_router(api_router)
+# Auth first so that signing in is reachable before anything that needs a
+# session; the rest in no particular order — their prefixes do not overlap.
+app.include_router(auth.router)
+app.include_router(songs.router)
+app.include_router(pdf.router)
+app.include_router(shapes.router)

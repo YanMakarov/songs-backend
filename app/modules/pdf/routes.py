@@ -5,8 +5,8 @@ from __future__ import annotations
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
 from starlette.concurrency import run_in_threadpool
 
-from ..pdf_import import PDFImportError, import_pdf_document
-from ..schemas import PDFImportResult
+from .importer import PDFImportError, import_pdf_document
+from .schemas import PDFImportResult
 
 
 router = APIRouter(prefix="/pdf", tags=["pdf"])

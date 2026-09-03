@@ -15,8 +15,9 @@ import pytest
 from sqlmodel import select
 
 from app.cli import main as cli
-from app.database import session_scope
-from app.models import AuthSession, Song, SongRevision, User
+from app.core.database import session_scope
+from app.modules.auth.models import AuthSession, User
+from app.modules.songs.models import Song, SongRevision
 from tests.conftest import PASSWORD
 
 COOKIE = "songs_session"

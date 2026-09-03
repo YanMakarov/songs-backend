@@ -11,7 +11,7 @@ from pdfminer.high_level import extract_pages
 from pdfminer.layout import LAParams, LTAnno, LTChar, LTTextContainer, LTTextLine
 from pdfminer.pdfparser import PDFSyntaxError
 
-from .music_utils import detect_key, normalize_chord_text
+from ...shared.music import detect_key, normalize_chord_text
 
 
 class PDFImportError(Exception):

@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import pytest
 
-from app.auth.policy import PUBLIC_ROUTES
-from app.config import AuthMode, settings
+from app.modules.auth.policy import PUBLIC_ROUTES
+from app.core.config import AuthMode, settings
 
 # Endpoints that must never answer without a session. One per router, so a new
 # router wired up without thinking shows up as a failure here rather than as

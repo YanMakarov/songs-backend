@@ -25,6 +25,9 @@ dev = [
   # TestClient's transport. Already present as a FastAPI extra, pinned here
   # so a bare `pip install -e .[dev]` is enough to run the suite.
   "httpx>=0.27",
+  # Enforces the layering described under [tool.importlinter] below. Run as
+  # `lint-imports`; the structure stops being real the day nothing checks it.
+  "import-linter>=2.0",
 ]
 
 [tool.pytest.ini_options]
@@ -50,3 +53,86 @@ include = ["app*"]
 [tool.uvicorn]
 factory = false
 reload = true
+
+
+# --- Import contracts ------------------------------------------------------
+#
+# The module structure is only real while the import direction holds. Written
+# down in a comment it survives about three weeks; written down here it fails
+# `lint-imports` instead. The frontend enforces the same four layers in
+# eslint.config.js — this is the backend half of the same rule.
+#
+#     app  ->  modules  ->  core  ->  shared
+#
+# Every arrow points one way. A module may reach another module, but only
+# through its package root — the deep path is what turns "pdf uses a song
+# line" into "pdf depends on every file the songs module happens to contain
+# today".
+#
+# Run it with:  lint-imports
+[tool.importlinter]
+root_package = "app"
+
+[[tool.importlinter.contracts]]
+name = "Layers point one way"
+type = "layers"
+layers = ["app.main : app.cli : app.tables", "app.modules", "app.core", "app.shared"]
+# `app` itself is the package __init__, which imports main on purpose.
+exhaustive = false
+
+[[tool.importlinter.contracts]]
+name = "shared/ knows nothing about the app"
+type = "forbidden"
+source_modules = ["app.shared"]
+forbidden_modules = ["app.core", "app.modules", "app.main", "app.cli", "app.tables"]
+
+[[tool.importlinter.contracts]]
+name = "core/ is infrastructure, not a feature"
+type = "forbidden"
+source_modules = ["app.core"]
+forbidden_modules = ["app.modules", "app.main", "app.cli", "app.tables"]
+
+[[tool.importlinter.contracts]]
+name = "A module must not reach up into the app layer"
+type = "forbidden"
+source_modules = ["app.modules"]
+forbidden_modules = ["app.main", "app.cli", "app.tables"]
+
+# One contract per module: its own files by path, every other module by front
+# door only. `app.modules.<name>` stays allowed — `app.modules.<name>.**` does
+# not.
+[[tool.importlinter.contracts]]
+name = "songs is used through its public API"
+type = "forbidden"
+source_modules = ["app.modules.auth", "app.modules.pdf", "app.modules.shapes"]
+forbidden_modules = ["app.modules.songs.*", "app.modules.songs.**"]
+# A front door that re-exports its own internals is the point, not a breach:
+# only the import written in the file is checked.
+allow_indirect_imports = true
+
+[[tool.importlinter.contracts]]
+name = "auth is used through its public API"
+type = "forbidden"
+source_modules = ["app.modules.songs", "app.modules.pdf", "app.modules.shapes"]
+forbidden_modules = ["app.modules.auth.*", "app.modules.auth.**"]
+# A front door that re-exports its own internals is the point, not a breach:
+# only the import written in the file is checked.
+allow_indirect_imports = true
+
+[[tool.importlinter.contracts]]
+name = "shapes is used through its public API"
+type = "forbidden"
+source_modules = ["app.modules.songs", "app.modules.auth", "app.modules.pdf"]
+forbidden_modules = ["app.modules.shapes.*", "app.modules.shapes.**"]
+# A front door that re-exports its own internals is the point, not a breach:
+# only the import written in the file is checked.
+allow_indirect_imports = true
+
+[[tool.importlinter.contracts]]
+name = "pdf is used through its public API"
+type = "forbidden"
+source_modules = ["app.modules.songs", "app.modules.auth", "app.modules.shapes"]
+forbidden_modules = ["app.modules.pdf.*", "app.modules.pdf.**"]
+# A front door that re-exports its own internals is the point, not a breach:
+# only the import written in the file is checked.
+allow_indirect_imports = true

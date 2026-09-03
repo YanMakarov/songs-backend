@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 from fastapi import Response
 from sqlmodel import Session, select
 
-from ..config import settings
-from ..models import AuthSession, User
+from ...core.config import settings
+from .models import AuthSession, User
 
 #: 32 bytes of entropy, url-safe. Long enough that guessing is not a strategy
 #: and short enough to sit in a cookie without thought.

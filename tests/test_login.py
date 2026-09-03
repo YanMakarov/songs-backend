@@ -7,11 +7,11 @@ from datetime import datetime, timedelta
 
 from sqlmodel import select
 
-from app.auth import throttle
-from app.auth.sessions import hash_token
-from app.config import settings
-from app.database import session_scope
-from app.models import AuthSession, User
+from app.modules.auth import throttle
+from app.modules.auth.sessions import hash_token
+from app.core.config import settings
+from app.core.database import session_scope
+from app.modules.auth.models import AuthSession, User
 from tests.conftest import PASSWORD
 
 COOKIE = "songs_session"

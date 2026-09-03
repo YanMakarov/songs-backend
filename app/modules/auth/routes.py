@@ -13,9 +13,9 @@ import logging
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from sqlmodel import Session, select
 
-from ..config import settings
-from ..database import get_session
-from ..models import User
+from ...core.config import settings
+from ...core.database import get_session
+from .models import User
 from . import throttle
 from .passwords import hash_password, needs_rehash, verify_password
 from .policy import current_user

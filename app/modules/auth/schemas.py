@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pydantic import Field
 
-from ..schemas import APIModel
+from ...core.schema import APIModel
 
 
 class LoginRequest(APIModel):

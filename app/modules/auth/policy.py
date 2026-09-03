@@ -17,9 +17,9 @@ import logging
 from fastapi import Depends, HTTPException, Request, status
 from sqlmodel import Session
 
-from ..config import AuthMode, settings
-from ..database import get_session
-from ..models import User
+from ...core.config import AuthMode, settings
+from ...core.database import get_session
+from .models import User
 from .sessions import resolve_session
 
 logger = logging.getLogger(__name__)

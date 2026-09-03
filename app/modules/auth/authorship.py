@@ -1,4 +1,9 @@
-"""Shared FastAPI dependencies."""
+"""Who to record as the author of a write.
+
+Lives in auth because that is where the answer comes from, and is published
+from this module's `__init__.py` so the songs routes can depend on "the
+current author" without depending on how sessions work.
+"""
 
 from __future__ import annotations
 
@@ -6,7 +11,7 @@ from urllib.parse import unquote
 
 from fastapi import Header, Request
 
-from .auth.policy import current_user
+from .policy import current_user
 
 MAX_NAME_LENGTH = 60
 

@@ -25,11 +25,12 @@ from pathlib import Path
 
 from sqlmodel import select
 
-from .auth.passwords import MIN_PASSWORD_LENGTH, hash_password
-from .auth.sessions import revoke_all_for_user
-from .config import settings
-from .database import init_db, session_scope
-from .models import AuthSession, User
+from .core.config import settings
+from .core.database import session_scope
+from .modules.auth.models import AuthSession, User
+from .modules.auth.passwords import MIN_PASSWORD_LENGTH, hash_password
+from .modules.auth.sessions import revoke_all_for_user
+from .tables import init_database
 
 
 def _normalise(username: str) -> str:
@@ -282,7 +283,7 @@ def main(argv: list[str] | None = None) -> int:
     _report_database()
     # The server may never have started against this file yet — creating the
     # first user has to work on an empty database.
-    init_db()
+    init_database()
     return args.func(args)
 
 

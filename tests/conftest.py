@@ -27,21 +27,23 @@ os.environ["SONGS_API_SESSION_COOKIE_SECURE"] = "0"
 
 from fastapi.testclient import TestClient  # noqa: E402
 
-from app.auth import throttle  # noqa: E402
-from app.auth.passwords import hash_password  # noqa: E402
-from app.config import AuthMode, settings  # noqa: E402
+from app.modules.auth import throttle  # noqa: E402
+from app.modules.auth.passwords import hash_password  # noqa: E402
+from app.core.config import AuthMode, settings  # noqa: E402
 from sqlmodel import select  # noqa: E402
 
-from app.database import init_db, session_scope  # noqa: E402
+from app.core.database import session_scope  # noqa: E402
 from app.main import app  # noqa: E402
-from app.models import AuthSession, Song, SongRevision, User  # noqa: E402
+from app.modules.auth.models import AuthSession, User  # noqa: E402
+from app.modules.songs.models import Song, SongRevision  # noqa: E402
+from app.tables import init_database  # noqa: E402
 
 PASSWORD = "correct-horse-battery"
 
 # Created once, here, rather than as a side effect of the `client` fixture
 # starting the app: a module that only tests pure functions still gets the
 # autouse cleanup below, and that cleanup queries these tables.
-init_db()
+init_database()
 
 
 @pytest.fixture(autouse=True)

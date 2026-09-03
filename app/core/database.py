@@ -40,7 +40,12 @@ if _is_sqlite:
 
 
 def init_db() -> None:
-    """Create missing tables, then bring existing ones up to date."""
+    """Create missing tables, then bring existing ones up to date.
+
+    Only creates tables whose model class has already been defined, so call it
+    through `app.tables.init_database` — that is the module which imports every
+    module's models and is therefore the one that knows the full list.
+    """
 
     SQLModel.metadata.create_all(engine)
     applied = run_migrations(engine)

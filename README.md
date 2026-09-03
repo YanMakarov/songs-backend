@@ -2,12 +2,47 @@
 
 FastAPI service that powers the Songs editor.
 
+## Structure
+
+Four layers, and the arrows only point one way:
+
+    app  ->  modules  ->  core  ->  shared
+
+- `app/shared/` — self-contained helpers that know nothing about this app:
+  the three-way text merge, the music theory, id generation.
+- `app/core/` — infrastructure every module may depend on: settings, the
+  database engine and migrations, the API payload base, ETag parsing.
+- `app/modules/` — the features. Each one owns its tables, schemas, service
+  functions and routes, and publishes a deliberately small surface from its
+  `__init__.py`: `songs` (the setlist and the songs in it), `auth`, `shapes`
+  (the movable chord-shape library), `pdf`.
+- `app/main.py`, `app/cli.py`, `app/tables.py` — the wiring. `main.py` is the
+  only file that knows the full list of modules.
+
+A module may use another module, but only through its package root. Reaching
+past that front door (`modules.songs.service` from outside `songs`) is what
+turns "pdf uses a song line" into "pdf depends on every file songs happens to
+contain today", so it is checked rather than merely intended:
+
+```bash
+lint-imports
+```
+
+The contracts live under `[tool.importlinter]` in `pyproject.toml`. The
+frontend enforces the same four layers in `eslint.config.js`; this is the
+backend half of the same rule.
+
+`app/tables.py` is worth knowing about: SQLModel only registers a table when
+its class is defined, so `create_all` creates exactly the tables whose module
+has been imported. That file imports every module's models, which is why a new
+module with tables has to be added to it.
+
 ## Authentication
 
-Every route is closed unless `app/auth/policy.py` lists it in `PUBLIC_ROUTES`.
-That list is the whole answer to "what is reachable without signing in?" — a
-router added under `app/api/` is denied by default until somebody opens it on
-purpose.
+Every route is closed unless `app/modules/auth/policy.py` lists it in
+`PUBLIC_ROUTES`. That list is the whole answer to "what is reachable without
+signing in?" — a router on a newly added module is denied by default until
+somebody opens it on purpose.
 
 Sessions are opaque tokens in an HttpOnly cookie, with a row per session in
 the database. The row stores only the SHA-256 of the token, so a copy of
@@ -71,6 +106,7 @@ here shows up as every request failing CORS rather than as a 401.
 ```bash
 pip install -e ".[dev]"
 python -m pytest
+lint-imports
 ```
 
 The suite covers the access policy, the sign-in flow and the CLI — the parts

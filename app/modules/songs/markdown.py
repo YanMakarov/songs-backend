@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from typing import Iterable, List
 
-from .models import generate_public_id
+from ...shared.ids import generate_public_id
 from .schemas import SongChord, SongLine
 
 _REPEAT_RE = re.compile(r"^[xх](\d{1,3})$", re.IGNORECASE)

@@ -40,6 +40,11 @@ jobs:
       - name: Tests
         run: python -m pytest -q
 
+      # The layering is the other thing that fails silently: a shortcut import
+      # costs nothing today and is what the structure erodes into over a year.
+      - name: Import contracts
+        run: lint-imports
+
   deploy:
     needs: backend-ci
     runs-on: ubuntu-latest

@@ -1,20 +1,13 @@
-"""Pydantic schemas for API payloads."""
+"""API payloads for setlists, songs and the change feed."""
 
 from __future__ import annotations
 
 from datetime import datetime
 from typing import List, Literal, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import Field
 
-
-def to_camel(string: str) -> str:
-    parts = string.split("_")
-    return parts[0] + "".join(word.capitalize() for word in parts[1:])
-
-
-class APIModel(BaseModel):
-    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True, from_attributes=True)
+from ...core.schema import APIModel
 
 
 class SongChord(APIModel):
@@ -36,14 +29,6 @@ class SongLine(APIModel):
     key: Optional[str] = None
     repeat_count: Optional[int] = None
     chords: List[SongChord] = Field(default_factory=list)
-
-
-class PDFImportResult(APIModel):
-    title: Optional[str] = None
-    bpm: Optional[int] = None
-    time_signature: Optional[str] = None
-    primary_key: Optional[str] = None
-    lines: List[SongLine] = Field(default_factory=list)
 
 
 class SongBase(APIModel):
@@ -142,30 +127,6 @@ class ConflictDetail(APIModel):
 
     message: str
     current: SongDetail
-
-
-class MovableShapeBase(APIModel):
-    name: Optional[str] = None
-    root_string: int
-    offsets: List[Optional[int]]
-    is_custom: bool = False
-
-
-class MovableShapeCreate(MovableShapeBase):
-    pass
-
-
-class MovableShapeUpdate(APIModel):
-    """Renaming a saved shape. Only the name is editable — the fretting
-    pattern is the shape's identity, so a different pattern is a different
-    shape, added and (if it was a mistake) deleted."""
-
-    name: Optional[str] = None
-
-
-class MovableShapeOut(MovableShapeBase):
-    id: str
-    created_at: datetime
 
 
 class SetlistBase(APIModel):
